@@ -1,4 +1,5 @@
-package adapter.incoming;
+package view;
+
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
