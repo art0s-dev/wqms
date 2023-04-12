@@ -32,4 +32,16 @@ class WebsiteScannerTest {
 		var scanner = new WebsiteScanner(wikipediaUrl);
 		assertEquals("Wikipedia", scanner.getDocument().get().getTitle());
 	}
+	
+	
+	@Test 
+	void GivenUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithADescription() {
+		var scanner = new WebsiteScanner(wikipediaUrl);
+		
+		var description = "Wikipedia is a free online encyclopedia, "
+				+ "created and edited by volunteers around the world"
+				+ " and hosted by the Wikimedia Foundation.";
+		
+		assertEquals(description, scanner.getDocument().get().getDescription());
+	}
 }

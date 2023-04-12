@@ -36,7 +36,8 @@ public class WebsiteScanner {
 					.uri(URI.create(url))
 					.build();
 			
-			return Optional.of(client.send(request, BodyHandlers.ofString()));	
+			var response = client.send(request, BodyHandlers.ofString());	
+			return Optional.of(response);	
 		} catch(Exception e) {
 			return Optional.empty();
 		}
@@ -47,19 +48,35 @@ public class WebsiteScanner {
 		var body = response.body().toString();
 		
 		document.setBody(body);
-		document.setTitle(this.getHtmlContents("title", body));
+		document.setTitle(this.searchForTag("title", body));
+		document.setDescription(this.searchForAttribute("meta", "description", body));
 		return document;
 	}
 	
 	
-	private String getHtmlContents(String tag, String body) {
+	private String searchForTag(String tag, String html) {
 		var startTag = "<" + tag + ">";
-		var start = body.indexOf(startTag); 
-		var end = body.indexOf("</" + tag + ">");
+		var postionOfStartTag = html.indexOf(startTag); 
+		var postionOfEndTag = html.indexOf("</" + tag + ">");
 		
-		var contentsWithStartTag = body.substring(start, end);
-		var content = contentsWithStartTag.split(startTag);
-		return content[content.length - 1];
+		var foundString = html.substring(postionOfStartTag, postionOfEndTag);
+		var stringList = foundString.split(startTag);
+		var contentsRightFromStartTag = stringList[stringList.length - 1];
+		return contentsRightFromStartTag;
+	}
+	
+	private String searchForAttribute(String tag, String attribute, String html) {
+		var postitionOfAttribute = html.indexOf(attribute);
+		var foundString = html.substring(postitionOfAttribute);
+		var leftAndRightFromDeclaration = foundString.split("content=", 2);
+		var contentsRight = leftAndRightFromDeclaration[leftAndRightFromDeclaration.length - 1];
+		var leftAndRightAfterClosingTag = contentsRight.split(">");
+		var contentsLeft = leftAndRightAfterClosingTag[0];
+		
+		var builder = new StringBuilder();
+		var doubleQuotes = builder.append('"').toString();
+		var valueOfAttribute = contentsLeft.replace(doubleQuotes,"");
+		return valueOfAttribute;
 	}
 	
 
