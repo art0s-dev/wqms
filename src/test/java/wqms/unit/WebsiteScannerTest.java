@@ -3,17 +3,19 @@ package wqms.unit;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
-
-import controller.WebsiteScanner;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
+
+import crawler.WebsiteScanner;
 
 class WebsiteScannerTest {
 	
 	private String wikipediaUrl = "http://www.wikipedia.org";
 	private String errorUrl = "hadsasdo3o2342ß00ß#ä#ä+";
 	private String oracleUrl = "https://www.oracle.com/de/";
+	private String siteWithoutMetadata = "http://chat.openai.de/";
 	
 
 	@Test
@@ -51,12 +53,19 @@ class WebsiteScannerTest {
 	void GivenOracleUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithListtOfKeywords() {
 		var scanner = new WebsiteScanner(oracleUrl);
 		var lookFor = "Software";
-		var keywordsList = scanner.getDocument().get().getKeywords();
+		List<String> keywordsList = scanner.getDocument().get().getKeywords();
 		boolean listContainsLookFor = keywordsList.stream()
 				.filter(keyword -> keyword.contentEquals(lookFor))
 				.findFirst()
 				.isPresent();
 
 		assertTrue(listContainsLookFor);
+	}
+	
+	@Test 
+	void GivenSiteWithoutMetaData_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithAnEmpyKeywordList() {
+		var scanner = new WebsiteScanner(siteWithoutMetadata);
+		List<String> list = scanner.getDocument().get().getKeywords();
+		assertTrue(list.isEmpty());
 	}
 }

@@ -1,8 +1,8 @@
-package controller;
+package crawler;
 
 import java.util.List;
 
-public class Document {
+public final class Document {
 	private String body;
 	private String title;
 	private String description;
