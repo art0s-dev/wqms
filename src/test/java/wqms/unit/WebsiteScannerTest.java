@@ -13,9 +13,11 @@ class WebsiteScannerTest {
 	
 	private String wikipediaUrl = "http://www.wikipedia.org";
 	private String errorUrl = "hadsasdo3o2342ß00ß#ä#ä+";
+	private String oracleUrl = "https://www.oracle.com/de/";
+	
 
 	@Test
-	void GivenUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithABody() {
+	void GivenWikipediaUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithABody() {
 		var scanner = new WebsiteScanner(wikipediaUrl);
 		var body = scanner.getDocument().get().getBody();
 		assertTrue(StringUtils.isNotBlank(body));
@@ -28,14 +30,14 @@ class WebsiteScannerTest {
 	}
 	
 	@Test
-	void GivenUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithAValidTitle() {
+	void GivenWikipediaUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithAValidTitle() {
 		var scanner = new WebsiteScanner(wikipediaUrl);
 		assertEquals("Wikipedia", scanner.getDocument().get().getTitle());
 	}
 	
 	
 	@Test 
-	void GivenUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithADescription() {
+	void GivenWikipediaUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithADescription() {
 		var scanner = new WebsiteScanner(wikipediaUrl);
 		
 		var description = "Wikipedia is a free online encyclopedia, "
@@ -43,5 +45,18 @@ class WebsiteScannerTest {
 				+ " and hosted by the Wikimedia Foundation.";
 		
 		assertEquals(description, scanner.getDocument().get().getDescription());
+	}
+	
+	@Test
+	void GivenOracleUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithListtOfKeywords() {
+		var scanner = new WebsiteScanner(oracleUrl);
+		var lookFor = "Software";
+		var keywordsList = scanner.getDocument().get().getKeywords();
+		boolean listContainsLookFor = keywordsList.stream()
+				.filter(keyword -> keyword.contentEquals(lookFor))
+				.findFirst()
+				.isPresent();
+
+		assertTrue(listContainsLookFor);
 	}
 }

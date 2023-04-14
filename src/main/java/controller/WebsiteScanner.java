@@ -8,7 +8,11 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.regex.PatternSyntaxException;
+import java.util.stream.Collectors;
 
 public class WebsiteScanner {
 	private Optional<Document> document;
@@ -50,9 +54,11 @@ public class WebsiteScanner {
 		document.setBody(body);
 		document.setTitle(this.searchForTag("title", body));
 		document.setDescription(this.searchForAttribute("meta", "description", body));
+		
+		var keywords = this.searchForAttribute("meta", "keywords", body);
+		document.setKeywords(this.createKeywordList(keywords));
 		return document;
 	}
-	
 	
 	private String searchForTag(String tag, String html) {
 		var startTag = "<" + tag + ">";
@@ -67,6 +73,12 @@ public class WebsiteScanner {
 	
 	private String searchForAttribute(String tag, String attribute, String html) {
 		var postitionOfAttribute = html.indexOf(attribute);
+		
+		boolean attributeDoesNotExist = postitionOfAttribute == -1;
+		if(attributeDoesNotExist) {
+			return "";
+		}
+		
 		var foundString = html.substring(postitionOfAttribute);
 		var leftAndRightFromDeclaration = foundString.split("content=", 2);
 		var contentsRight = leftAndRightFromDeclaration[leftAndRightFromDeclaration.length - 1];
@@ -78,6 +90,17 @@ public class WebsiteScanner {
 		var valueOfAttribute = contentsLeft.replace(doubleQuotes,"");
 		return valueOfAttribute;
 	}
+	
+	private List<String> createKeywordList(String keywordString){
+		var list = Arrays.asList(keywordString.split(","));
+		return list.parallelStream()
+		.map(keyword -> keyword.strip())
+		.collect(Collectors.toList());
+	}
+		
+		
+	
+	
 	
 
 	public Optional<Document> getDocument() { return this.document; }
