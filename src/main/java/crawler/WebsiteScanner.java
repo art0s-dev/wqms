@@ -73,7 +73,6 @@ public class WebsiteScanner {
 	
 	private String searchForAttribute(String tag, String attribute, String html) {
 		int postitionOfAttribute = html.indexOf(attribute);
-		
 		boolean attributeDoesNotExist = postitionOfAttribute == -1;
 		if(attributeDoesNotExist) {
 			return "";
