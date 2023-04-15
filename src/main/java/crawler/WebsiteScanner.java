@@ -11,21 +11,22 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
 
 public class WebsiteScanner {
-	private Optional<Document> document;
+	private Optional<Meta> meta;
 	
 	public WebsiteScanner(String url) {
 		Optional<HttpResponse<String>> response = this.scan(url);
-		this.document = Optional.empty();
+		this.meta = Optional.empty();
 		
-		if(!response.isEmpty()) {
-			var responseContents = response.orElseThrow();
-			Document document = this.extractInformations(responseContents);
-			this.document = Optional.of(document);
+		if(response.isEmpty()) {
+			return;
 		}
+		
+		var responseContents = response.orElseThrow();
+		Meta meta = this.extractInformations(responseContents);
+		this.meta = Optional.of(meta);
 	}
 	
 	private Optional<HttpResponse<String>> scan(String url){
@@ -47,17 +48,17 @@ public class WebsiteScanner {
 		}
 	}
 	
-	private Document extractInformations(HttpResponse<String> response) {
-		var document = new Document();
+	private Meta extractInformations(HttpResponse<String> response) {
+		var meta = new Meta();
 		var body = response.body().toString();
 		
-		document.setBody(body);
-		document.setTitle(this.searchForTag("title", body));
-		document.setDescription(this.searchForAttribute("meta", "description", body));
+		meta.setBody(body);
+		meta.setTitle(this.searchForTag("title", body));
+		meta.setDescription(this.searchForAttribute("meta", "description", body));
 		
 		String keywords = this.searchForAttribute("meta", "keywords", body);
-		document.setKeywords(this.createKeywordList(keywords));
-		return document;
+		meta.setKeywords(this.createKeywordList(keywords));
+		return meta;
 	}
 	
 	private String searchForTag(String tag, String html) {
@@ -99,8 +100,7 @@ public class WebsiteScanner {
 		return list.parallelStream()
 		.map(keyword -> keyword.strip())
 		.collect(Collectors.toList());
-	}
-		
+	}	
 
-	public Optional<Document> getDocument() { return this.document; }
+	public Optional<Meta> getMeta() { return this.meta; }
 }

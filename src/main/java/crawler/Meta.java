@@ -2,7 +2,7 @@ package crawler;
 
 import java.util.List;
 
-public final class Document {
+public final class Meta {
 	private String body;
 	private String title;
 	private String description;

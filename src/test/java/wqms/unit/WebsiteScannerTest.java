@@ -21,22 +21,21 @@ class WebsiteScannerTest {
 	@Test
 	void GivenWikipediaUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithABody() {
 		var scanner = new WebsiteScanner(wikipediaUrl);
-		var body = scanner.getDocument().get().getBody();
+		var body = scanner.getMeta().get().getBody();
 		assertTrue(StringUtils.isNotBlank(body));
 	}
 	
 	@Test
 	void GivenErrorUrlAndScanner_WhenScannerIsInstanciated_ThenTheScannerHasNoDocument() {
 		var scanner = new WebsiteScanner(errorUrl);
-		assertTrue(scanner.getDocument().isEmpty());
+		assertTrue(scanner.getMeta().isEmpty());
 	}
 	
 	@Test
 	void GivenWikipediaUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithAValidTitle() {
 		var scanner = new WebsiteScanner(wikipediaUrl);
-		assertEquals("Wikipedia", scanner.getDocument().get().getTitle());
+		assertEquals("Wikipedia", scanner.getMeta().get().getTitle());
 	}
-	
 	
 	@Test 
 	void GivenWikipediaUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithADescription() {
@@ -46,14 +45,14 @@ class WebsiteScannerTest {
 				+ "created and edited by volunteers around the world"
 				+ " and hosted by the Wikimedia Foundation.";
 		
-		assertEquals(description, scanner.getDocument().get().getDescription());
+		assertEquals(description, scanner.getMeta().get().getDescription());
 	}
 	
 	@Test
 	void GivenOracleUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithListtOfKeywords() {
 		var scanner = new WebsiteScanner(oracleUrl);
 		var lookFor = "Software";
-		List<String> keywordsList = scanner.getDocument().get().getKeywords();
+		List<String> keywordsList = scanner.getMeta().get().getKeywords();
 		boolean listContainsLookFor = keywordsList.stream()
 				.filter(keyword -> keyword.contentEquals(lookFor))
 				.findFirst()
@@ -65,7 +64,7 @@ class WebsiteScannerTest {
 	@Test 
 	void GivenSiteWithoutMetaData_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithAnEmpyKeywordList() {
 		var scanner = new WebsiteScanner(siteWithoutMetadata);
-		List<String> list = scanner.getDocument().get().getKeywords();
+		List<String> list = scanner.getMeta().get().getKeywords();
 		assertTrue(list.isEmpty());
 	}
 }
