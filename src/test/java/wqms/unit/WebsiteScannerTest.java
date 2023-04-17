@@ -1,22 +1,15 @@
 package wqms.unit;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.IOException;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
-
 import crawler.WebsiteScanner;
+import static wqms.unit.TestSites.*;
+
+import java.util.List;
+
 
 class WebsiteScannerTest {
-	
-	private String wikipediaUrl = "http://www.wikipedia.org";
-	private String errorUrl = "hadsasdo3o2342ß00ß#ä#ä+";
-	private String oracleUrl = "https://www.oracle.com/de/";
-	private String siteWithoutMetadata = "http://chat.openai.de/";
-	
 
 	@Test
 	void GivenWikipediaUrlAndScanner_WhenScannerIsInstanciated_ThenScannerContainsADocumentWithABody() {

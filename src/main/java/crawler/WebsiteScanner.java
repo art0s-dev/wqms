@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class WebsiteScanner {
 	private Optional<Meta> meta;
+
 	
 	public WebsiteScanner(String url) {
 		Optional<HttpResponse<String>> response = this.scan(url);
@@ -100,7 +101,9 @@ public class WebsiteScanner {
 		return list.parallelStream()
 		.map(keyword -> keyword.strip())
 		.collect(Collectors.toList());
-	}	
+	}
+	
 
 	public Optional<Meta> getMeta() { return this.meta; }
+
 }
