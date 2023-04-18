@@ -12,17 +12,15 @@ import crawler.SitemapAnalyzer;
 class SitemapAnalyzerTest {
 
 	@Test
-	@Disabled
-	void GivenOracleUrl_WhenSitemapAnalyzerIsInstanciated() {
-		SitemapAnalyzer analyzer = new SitemapAnalyzer(oracleUrl);
-		Optional<Document> sitemap = analyzer.getSitemap();
-		assertTrue(sitemap.isEmpty());
+	void GivenErrorUrl_WhenSitemapAnalyzerIsInstanciated_ThenSitemapIsEmpty() {
+		SitemapAnalyzer analyzer = new SitemapAnalyzer(errorUrl);
+		assertTrue(analyzer.getSitemap().isEmpty());
 	}
 	
 	@Test
-	void GivenErrorUrl_WhenSitemapAnalyzerIsInstanciated_ThenSizemapIsEmpty() {
-		SitemapAnalyzer analyzer = new SitemapAnalyzer(errorUrl);
-		assertTrue(analyzer.getSitemap().isEmpty());
+	void GivenPageWithdSitemapInRoot_WhenSitemapAnalyzerIsInstanciated_ThenSitemapIsCreated() {
+		Optional<Document> sitemap = new SitemapAnalyzer(governmentUrl).getSitemap();
+		assertTrue(sitemap.isPresent());
 	}
 
 }

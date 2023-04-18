@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class WebsiteScanner {
+public class WebsiteScanner implements CanProcessWebPages {
 	private Optional<Meta> meta;
 
 	
@@ -28,25 +28,6 @@ public class WebsiteScanner {
 		var responseContents = response.orElseThrow();
 		Meta meta = this.extractInformations(responseContents);
 		this.meta = Optional.of(meta);
-	}
-	
-	private Optional<HttpResponse<String>> scan(String url){
-		try {
-			HttpClient client = HttpClient.newBuilder()
-					.version(Version.HTTP_1_1)
-					.followRedirects(Redirect.NORMAL)
-					.connectTimeout(Duration.ofSeconds(10))
-					.build();
-			
-			HttpRequest request = HttpRequest.newBuilder()
-					.uri(URI.create(url))
-					.build();
-			
-			var response = client.send(request, BodyHandlers.ofString());	
-			return Optional.of(response);	
-		} catch(Exception e) {
-			return Optional.empty();
-		}
 	}
 	
 	private Meta extractInformations(HttpResponse<String> response) {

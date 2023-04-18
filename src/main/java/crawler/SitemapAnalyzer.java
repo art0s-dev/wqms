@@ -3,9 +3,12 @@ package crawler;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.http.HttpResponse;
 import java.util.Optional;
 
 import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -13,7 +16,7 @@ import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
 
-public class SitemapAnalyzer {
+public class SitemapAnalyzer implements CanProcessWebPages{
 	private Optional<Document> sitemap;
 	private final String pathToSitemapXsd = "src/main/java/crawler/sitemap_scheme.xsd";
 	private String pathToSitemap = "/sitemap.xml";
@@ -48,35 +51,33 @@ public class SitemapAnalyzer {
 	}
 	
 	
-	
-	
-	
-	
 	private Boolean isSitemapThere(String url) {
-		return false;
+		try {
+			URL urlObject = new URL(url);
+			Optional<HttpResponse<String>> response = this.scan(url);
+			String markup = response.orElseThrow().body();
+			return markup.contains("<urlset");
+		} catch (Exception e) {
+			return false;
+		}
 	}
+	
+	private Optional<Document> parseSitemap(String url){
+		DocumentBuilderFactory instance = DocumentBuilderFactory.newInstance();
+		try {
+			DocumentBuilder builder = instance.newDocumentBuilder();
+			URL urlObject = new URL(url);
+			InputStream stream = urlObject.openStream();
+			Document sitemap = builder.parse(stream);
+			return Optional.of(sitemap);
+		} catch (Exception e) {
+			return Optional.empty();
+		}
+	}
+	
 	
 	private Boolean isRobotsFileThere(String url) {
 		return false;
-		/*try {
-			URL urlObject = new URL(url);
-			InputStream stream = urlObject.openStream();
-			
-		} catch (Exception e) {
-			return false;
-		}*/
-		
-/*this.pathToSitemap = pathToSitemap;
-		
-		this.pathToSitemap
-		if()
-		//this.pathToSitemap this.searchForPathToSitemap();
-		
-		/**String pathToSitemap = url + this.pathToSitemap;
-		boolean sitemapIsNotValid = !this.isSitemapValid(pathToSitemap);
-		if(sitemapIsNotValid) {
-			return Optional.empty();
-		}*/
 	}
 	
 	private String searchSitemapFromRobotsFile(String url) {
@@ -87,26 +88,6 @@ public class SitemapAnalyzer {
 		return "";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	private Optional<Document> parseSitemap(String url){
-		/**DocumentBuilderFactory instance = DocumentBuilderFactory.newInstance();
-		try {
-			DocumentBuilder builder = instance.newDocumentBuilder();
-			URL urlObject = new URL(url);
-			InputStream stream = urlObject.openStream();
-			Document sitemap = builder.parse(stream);
-			return Optional.of(sitemap);
-		} catch (Exception e) {
-			return Optional.empty();
-		}**/
-		return Optional.empty();
-	}
 	
 	private Boolean isSitemapValid(String url) {
 		try {
@@ -123,11 +104,6 @@ public class SitemapAnalyzer {
 		}
 		
 	}
-	
-	
-	
-	
-	
 
 	public Optional<Document> getSitemap() { return this.sitemap; }
 }
