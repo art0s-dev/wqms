@@ -8,14 +8,9 @@ import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
-import java.util.List;
 import java.util.Optional;
 
 public interface CanProcessWebPages {
-	public static List<Meta> crawl(String url) {
-		return null;
-	}
-	
 	public default Optional<HttpResponse<String>> scan(String url){
 		try {
 			HttpClient client = HttpClient.newBuilder()
