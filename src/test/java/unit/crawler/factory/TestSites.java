@@ -1,0 +1,48 @@
+package unit.crawler.factory;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public final class TestSites {
+	static List<String> malformedUrls = Arrays.asList(
+		"hadsasdo3o2342ß00ß#ä#ä+",
+		"<?php eval('echo true;'); ?>"
+	);
+	
+	static List<String> normalSitemaps = Arrays.asList(
+		"https://www.baden-wuerttemberg.de/",
+		"http://www.wikipedia.org/"
+	);
+
+	static List<String> noRobots = Arrays.asList(
+		"http://chat.openai.de/"
+	);
+	
+	static List<String> unusualSitemaps = Arrays.asList(
+		"https://www.lufthansa.com/",
+		"https://sap.com/"
+	);
+	
+	public static List<URL> getUrlsFrom(List<String> linkList)  {
+		return linkList.parallelStream()
+				.map(link -> toUrl(link))
+				.filter(url -> url.isPresent())
+				.map(url -> url.orElseThrow())
+				.collect(Collectors.toList());
+	}
+	
+	private static Optional<URL> toUrl(String link) {
+		try { 
+			var url = new URL(link);
+			return Optional.of(url); 
+		} catch ( MalformedURLException e ) { 
+			return Optional.empty(); 
+		}
+	}
+}

@@ -16,7 +16,7 @@ import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
 
-public class SitemapAnalyser implements CanProcessWebPages{
+public class SitemapAnalyser implements CanScanASingleWebPage{
 	private Optional<Document> sitemap;
 	private final String pathSitemapXsd = "src/main/java/crawler/sitemap_scheme.xsd";
 	private final String pathSitemapSitemapIndexXsd = "src/main/java/crawler/sitemap_scheme_siteindex.xsd";
