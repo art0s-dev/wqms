@@ -26,13 +26,13 @@ public final class MetaExtractor implements CanScanASingleWebPage,CanBeStarted {
 		}
 		
 		var responseContents = response.orElseThrow();
-		Meta meta = extractInformations(responseContents);
-		this.meta = Optional.of(meta);
+		//Meta meta = extractInformations(responseContents);
+		//this.meta = Optional.of(meta);
 	}
 	
-	public Optional<Meta> getMeta() { return this.meta; }
+	//public Optional<Meta> getMeta() { return this.meta; }
 	
-	private Meta extractInformations(HttpResponse<String> response) {
+	/*private Meta extractInformations(HttpResponse<String> response) {
 		
 		var body = response.body().toString();
 		var title = this.searchForTag("title", body);
@@ -40,8 +40,8 @@ public final class MetaExtractor implements CanScanASingleWebPage,CanBeStarted {
 		var keywords = this.searchForAttribute("keywords", body);
 		List<String> keywordList = this.createKeywordList(keywords);
 		
-		return new Meta(body,title,description,keywordList);
-	}
+		//return new Meta(body,title,description,keywordList);
+	}*/
 	
 	private String searchForTag(String tag, String html) {
 		

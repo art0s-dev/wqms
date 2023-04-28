@@ -1,5 +1,7 @@
 package crawler.extractor;
 
+import java.util.Optional;
+
 public interface CanBuildMeta {
-	public Meta build();
+	public Optional<Meta> build();
 }
