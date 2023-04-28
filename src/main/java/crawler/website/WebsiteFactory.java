@@ -1,41 +1,9 @@
 package crawler.website;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
-import java.util.logging.Logger;
 
-import javax.xml.transform.stream.StreamSource;
-
-public final class WebsiteFactory implements 
-CanAcceptUrl, CanBuildWebsite 
-{
-	private URL url;
-
-	public Optional<Website> build() {
-		var url = this.url;
-		var urlWasNotSet = url == null;
-		
-		if(urlWasNotSet) {
-			return Optional.empty();
-		}
-		
-		try( var stream = url.openStream() )
-		{
-			var source = new StreamSource(stream);
-			var body = source.toString();
-			var website = new Website(body);
-			
-			return Optional.of(website);
-		} 
-		
-		catch (IOException e) 
-		{ 
-			return Optional.empty();
-		}
-	}
-
-	public void setUrl(URL url) {
-		this.url = url;
-	}
+public interface WebsiteFactory {
+	Optional<Website> build();
+	public void setUrl(URL url);
 }
