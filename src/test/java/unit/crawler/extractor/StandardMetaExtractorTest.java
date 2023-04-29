@@ -29,7 +29,6 @@ class StandardMetaExtractorTest {
 		normalSites = createDummyWebsites(pathToSites + pathToNormalSites);
 		emptySites = createDummyWebsites(pathToSites + pathToEmptySites);
 	}
-	
 
 	@ParameterizedTest
 	@MethodSource("getNormalSites")
@@ -64,12 +63,7 @@ class StandardMetaExtractorTest {
 	
 	@Test
 	void GivenDescription_WhenExtracting_ThenDescriptionIsSame() {
-		var description = new StringBuilder()
-				.append("<meta name='description' content=")
-				.append('"').append("test").append('"')
-				.append(">")
-				.toString();
-		
+		var description = createDescription();
 		var meta = createMeta(new Website(description));
 		
 		var descriptionIsTheSame = meta.description
@@ -77,7 +71,35 @@ class StandardMetaExtractorTest {
 	
 		assertTrue(descriptionIsTheSame);
 	}
+
+	@Test 
+	void GivenDescriptionInReversedOrder_WhenExtracting_ThenDescriptionIsSame() {
+		var description = createDescriptionReversed();
+		var meta = createMeta(new Website(description));
+		
+		var descriptionIsTheSame = meta.description
+				.contentEquals("test");
 	
+		assertTrue(descriptionIsTheSame);
+	}
+ 
+
+	private String createDescriptionReversed() {
+		return new StringBuilder()
+				.append("<meta content=")
+				.append('"').append("test").append('"')
+				.append("name='description'>")
+				.toString();
+	}
+	
+	private String createDescription() {
+		var description = new StringBuilder()
+				.append("<meta name='description' content=")
+				.append('"').append("test").append('"')
+				.append(">")
+				.toString();
+		return description;
+	}
 	
 	private Meta createMeta(Website website) {
 		var extractor = new StandardMetaExtractor();
