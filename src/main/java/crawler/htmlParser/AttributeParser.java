@@ -12,9 +12,7 @@ public final class AttributeParser implements HtmlParser {
 	
 	String keywordsAttribute = "keywords";
 	String markupBeforeValue = "content=";
-	String doubleQuotes = new StringBuilder() 
-			.append('"')
-			.toString();
+	String doubleQuotes = "\"";
 	
 	public AttributeParser(Website website) {
 		this.website = website;
@@ -77,17 +75,20 @@ public final class AttributeParser implements HtmlParser {
 		var first = pageParts[0]; 
 		var last = pageParts[1];
 		
+		return createTagFromStartToSplit(first)
+			+ createTagFromSplitToEnd(last);
+	}
+
+	private String createTagFromStartToSplit(String first) {
 		int positionOfStartTag = first.lastIndexOf('<');
-		
+		return first.substring(positionOfStartTag);
+	}
+
+	private String createTagFromSplitToEnd(String last) {
 		int offsetForEndTag = 1;
 		int positionOfEndTag = last.indexOf('>') + offsetForEndTag;
-		
-		var tagFromStartToSplit = first.substring(positionOfStartTag);
-		
 		var fromSplit = 0;
-		var tagFromSplitToEnd = last.substring(fromSplit, positionOfEndTag);
-		
-		return tagFromStartToSplit + tagFromSplitToEnd;
+		return last.substring(fromSplit, positionOfEndTag);
 	}
 
 }

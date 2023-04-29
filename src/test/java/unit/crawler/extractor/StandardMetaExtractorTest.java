@@ -17,12 +17,12 @@ class StandardMetaExtractorTest {
 	static String pathToSites = "src/test/java/sites";
 	static String pathToNormalSites = "/normal/";
 	static String pathToEmptySites = "/empty/";
-	static String pathToMalformedWebsites = "/malformed/";
+	
+	String markupForDescription = "<meta name=\"description\" content=\"test\">";
+	String markupForDescriptionReversed = "<meta content=\"test\" name=\"description\">";
 	
 	static List<Website> normalSites;
-	static List<Website> sitesWithoutMeta;
 	static List<Website> emptySites;
-	static List<Website> malformedSites;
 	
 	@BeforeAll
 	static void beforeAll(){
@@ -63,7 +63,7 @@ class StandardMetaExtractorTest {
 	
 	@Test
 	void GivenDescription_WhenExtracting_ThenDescriptionIsSame() {
-		var description = createDescription();
+		var description = this.markupForDescription;
 		var meta = createMeta(new Website(description));
 		
 		var descriptionIsTheSame = meta.description
@@ -74,7 +74,7 @@ class StandardMetaExtractorTest {
 
 	@Test 
 	void GivenDescriptionInReversedOrder_WhenExtracting_ThenDescriptionIsSame() {
-		var description = createDescriptionReversed();
+		var description = this.markupForDescriptionReversed;
 		var meta = createMeta(new Website(description));
 		
 		var descriptionIsTheSame = meta.description
@@ -83,23 +83,6 @@ class StandardMetaExtractorTest {
 		assertTrue(descriptionIsTheSame);
 	}
  
-
-	private String createDescriptionReversed() {
-		return new StringBuilder()
-				.append("<meta content=")
-				.append('"').append("test").append('"')
-				.append("name='description'>")
-				.toString();
-	}
-	
-	private String createDescription() {
-		var description = new StringBuilder()
-				.append("<meta name='description' content=")
-				.append('"').append("test").append('"')
-				.append(">")
-				.toString();
-		return description;
-	}
 	
 	private Meta createMeta(Website website) {
 		var extractor = new StandardMetaExtractor();
