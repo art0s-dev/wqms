@@ -12,11 +12,10 @@ import crawler.website.Website;
 class AttributeParserTest {
 
 	String markup = "<meta someOther=\"true\"/>" 
-		+ "<meta name=\"description\" content=\"testValue\"/>";
-	
+			+ "<meta name=\"description\" content=\"testValue\"/>";
+
 	String keywordMarkup = "<meta name=\"keywords\" content=\"Baden-Württemberg, "
-			+ "Landesregierung, Landesportal, Ministerpräsident"
-			+ ",Landeskunde, Politik,\" />";
+			+ "Landesregierung, Landesportal, Ministerpräsident" + ",Landeskunde, Politik,\" />";
 
 	@Test
 	void GivenWebpage_WhenExtracting_ThenReturnContentsOfAttribute() {
@@ -26,20 +25,19 @@ class AttributeParserTest {
 
 		assertTrue(text.contentEquals("testValue"));
 	}
-	
+
 	@Test
 	void GivenWebpage_WhenExtracting_ThenReturnKeywordList() {
 		var website = new Website(this.keywordMarkup);
 		var attributeParser = new AttributeParser(website);
 		List<String> keywords = attributeParser.extractKeywords();
 		var keywordsAreComplete = checkKeywords(keywords);
-		
+
 		assertTrue(keywordsAreComplete);
 	}
 
 	private boolean checkKeywords(List<String> keywords) {
-		return keywords.contains("Baden-Württemberg") 
-				&& keywords.contains("Ministerpräsident");
+		return keywords.contains("Baden-Württemberg") && keywords.contains("Ministerpräsident");
 	}
 
 }

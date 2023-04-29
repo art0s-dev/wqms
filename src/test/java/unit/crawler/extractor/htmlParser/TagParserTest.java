@@ -16,7 +16,7 @@ class TagParserTest {
 		var website = new Website(html);
 		var tagParser = new TagParser(website);
 		var text = tagParser.extract("title");
-		
+
 		assertTrue(text.contentEquals("Website"));
 	}
 

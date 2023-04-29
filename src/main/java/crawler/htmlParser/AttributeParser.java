@@ -12,7 +12,6 @@ public final class AttributeParser implements HtmlParser {
 	
 	String keywordsAttribute = "keywords";
 	String markupBeforeValue = "content=";
-	String doubleQuotes = "\"";
 	
 	public AttributeParser(Website website) {
 		this.website = website;
@@ -64,6 +63,7 @@ public final class AttributeParser implements HtmlParser {
 		var markupAndValue = metaTag.split(markupBeforeValue);
 		var valueAndTagRest = markupAndValue[markupAndValue.length -1];
 		
+		var doubleQuotes = "\"";
 		var valueAndDoubleQuotes = valueAndTagRest.split(doubleQuotes);
 		final int positionOfValue = 1;
 		
@@ -86,8 +86,9 @@ public final class AttributeParser implements HtmlParser {
 
 	private String createTagFromSplitToEnd(String last) {
 		int offsetForEndTag = 1;
-		int positionOfEndTag = last.indexOf('>') + offsetForEndTag;
 		var fromSplit = 0;
+		
+		int positionOfEndTag = last.indexOf('>') + offsetForEndTag;
 		return last.substring(fromSplit, positionOfEndTag);
 	}
 
