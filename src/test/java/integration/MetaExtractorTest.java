@@ -55,6 +55,7 @@ class MetaExtractorTest {
 	@Test  @Disabled
 	void GivenOracleUrlAndextractor_WhenextractorIsInstanciated_ThenextractorContainsADocumentWithListtOfKeywords() {
 		var extractor = new MetaExtractor(oracleUrl);
+		
 		var lookFor = "Software";
 		extractor.start();
 		

@@ -12,7 +12,7 @@ import crawler.extractor.Meta;
 import crawler.website.Website;
 import crawler.extractor.StandardMetaExtractor;
 
-class StandardExtractorTest {
+class StandardMetaExtractorTest {
 	
 	static String pathToSites = "src/test/java/sites";
 	static String pathToNormalSites = "/normal/";
@@ -23,8 +23,6 @@ class StandardExtractorTest {
 	static List<Website> sitesWithoutMeta;
 	static List<Website> emptySites;
 	static List<Website> malformedSites;
-	
-	
 	
 	@BeforeAll
 	static void beforeAll(){
@@ -39,7 +37,7 @@ class StandardExtractorTest {
 		Website website
 	) {
 		var meta = createMeta(website);
-		Boolean titleIsPresent = !meta.title.isBlank();
+		var titleIsPresent = !meta.title.isBlank();
 	
 		assertTrue(titleIsPresent);
 	}
@@ -50,11 +48,11 @@ class StandardExtractorTest {
 		Website website
 	) {
 		var meta = createMeta(website);
-		Boolean titleIsBlank = meta.title.isBlank();
+		var titleIsBlank = meta.title.isBlank();
 	
 		assertTrue(titleIsBlank);
 	}
-	
+
 	@Test
 	void GivenSiteWasNotSet_WhenExtracting_ThenEmptyMetaReturns()
 	{
@@ -62,6 +60,22 @@ class StandardExtractorTest {
 		var metaIsEmpty = extractor.build().isEmpty();
 		
 		assertTrue(metaIsEmpty);
+	}
+	
+	@Test
+	void GivenDescription_WhenExtracting_ThenDescriptionIsSame() {
+		var description = new StringBuilder()
+				.append("<meta name='description' content=")
+				.append('"').append("test").append('"')
+				.append(">")
+				.toString();
+		
+		var meta = createMeta(new Website(description));
+		
+		var descriptionIsTheSame = meta.description
+				.contentEquals("test");
+	
+		assertTrue(descriptionIsTheSame);
 	}
 	
 	
