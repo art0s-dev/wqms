@@ -8,6 +8,8 @@ public final class StandardMetaExtractor implements MetaExtractor {
 	
 	Website website;
 	String markupBeforeValue = "content=";
+	String titleTag = "title";
+	String descriptionAttribute = "description";
 	
 	public Optional<Meta> build() {
 		
@@ -18,8 +20,8 @@ public final class StandardMetaExtractor implements MetaExtractor {
 			return Optional.empty();
 		}
 		
-		var title = this.searchForTag("title");
-		var description = this.searchForAttribute("description");
+		var title = searchForTag(titleTag);
+		var description = searchForAttribute(descriptionAttribute);
 		var meta = new Meta(title,description);
 		
 		return Optional.of(meta);
