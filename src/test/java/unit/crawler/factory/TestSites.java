@@ -10,21 +10,21 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class TestSites {
-	static List<String> malformedUrls = Arrays.asList(
+	public static List<String> malformedUrls = Arrays.asList(
 		"hadsasdo3o2342ß00ß#ä#ä+",
 		"<?php eval('echo true;'); ?>"
 	);
 	
-	static List<String> normalSitemaps = Arrays.asList(
+	public static List<String> normalSitemaps = Arrays.asList(
 		"https://www.baden-wuerttemberg.de/",
 		"http://www.wikipedia.org/"
 	);
 
-	static List<String> noRobots = Arrays.asList(
+	public static List<String> noRobots = Arrays.asList(
 		"http://chat.openai.de/"
 	);
 	
-	static List<String> unusualSitemaps = Arrays.asList(
+	public static List<String> unusualSitemaps = Arrays.asList(
 		"https://www.lufthansa.com/",
 		"https://sap.com/"
 	);
