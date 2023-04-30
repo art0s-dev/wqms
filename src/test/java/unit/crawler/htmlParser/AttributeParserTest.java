@@ -1,4 +1,4 @@
-package unit.crawler.extractor.htmlParser;
+package unit.crawler.htmlParser;
 
 import static org.junit.jupiter.api.Assertions.*;
 

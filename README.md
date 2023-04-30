@@ -9,3 +9,5 @@ you can check out the wiki to see the design docs.
 
 For more informations you can check out the testsuite.
 It gives you the most informations on what's going on in the code.
+
+For further information about the status and the project hit me up if you like.
