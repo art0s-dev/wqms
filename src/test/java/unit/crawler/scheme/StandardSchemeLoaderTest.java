@@ -12,7 +12,7 @@ import crawler.scheme.StandardSchemeLoader;
 
 class StandardSchemeLoaderTest {
 
-	@Test @Disabled
+	@Test
 	void GivenSchemeLoader_WhenLoad_ThenListOfSchemesIsNotEmpty() {
 		var loader = new StandardSchemeLoader();
 		List<Scheme> list = loader.load();

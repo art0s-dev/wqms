@@ -1,13 +1,13 @@
 package crawler.scheme;
 
-import org.w3c.dom.Document;
+import javax.xml.validation.Schema;
 
 public class Scheme {
 	public String name;
 	public String path;
-	public Document document;
+	public Schema document;
 	
-	public Scheme(String name, String path, Document document) {
+	public Scheme(String name, String path, Schema document) {
 		this.name = name;
 		this.path = path;
 		this.document = document;

@@ -1,9 +1,11 @@
 package unit.crawler.extractor;
 
 import java.io.IOException;
+import static java.nio.file.Files.walk;
+import static java.nio.file.Paths.get;
+import static java.util.stream.Collectors.toList;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,10 +19,10 @@ public final class ExtractorWebsiteTestFactory {
 	){
 		try 
 		{
-			return Files.walk(Paths.get(sitesFolder))
+			return walk(get(sitesFolder))
 				.filter(Files::isRegularFile)
 				.map(file -> createDummy(file))
-				.collect(Collectors.toList());
+				.collect(toList());
 		} 
 		
 		catch (IOException e) 
