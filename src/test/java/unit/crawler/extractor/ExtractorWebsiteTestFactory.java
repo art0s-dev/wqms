@@ -1,8 +1,5 @@
 package unit.crawler.extractor;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import crawler.website.Website;
+import tools.files.SimpleFileReader;
 
 public final class ExtractorWebsiteTestFactory {
 	
@@ -33,45 +31,14 @@ public final class ExtractorWebsiteTestFactory {
 		return null;
 	}
 	
-	private static String getFileContents(Path file){
-		try 
-		{
-			var bufferedReader = createBufferedReader(file);
-			
-			var lines = bufferedReader.lines()
-					.collect(Collectors.toList())
-					.stream()
-					.reduce("", (carry, item) -> carry + item );
-			
-			bufferedReader.close();
-			
-			return lines;
-		} 
-		
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-	
 	private static Website createDummy(Path file) {
-		return new Website(getFileContents(file));
+		var path = file.toString();
+		try {
+			return new Website(SimpleFileReader.read(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-	private static BufferedReader createBufferedReader(Path file) 
-	throws FileNotFoundException 
-	{
-		var path = file.toString();
-		var fileReader = new FileReader(path);
-		var bufferedReader = new BufferedReader(fileReader);
-		
-		return bufferedReader;
-	}
 }
