@@ -1,7 +1,7 @@
 package integration;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static unit.crawler.factory.TestSites.*;
+import static unit.crawler.website.TestSites.*;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

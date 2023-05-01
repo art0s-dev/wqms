@@ -1,7 +1,7 @@
-package unit.crawler.factory;
+package unit.crawler.website;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static unit.crawler.factory.TestSites.*;
+import static unit.crawler.website.TestSites.*;
 
 import java.net.URL;
 import java.util.List;

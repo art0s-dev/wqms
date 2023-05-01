@@ -1,4 +1,4 @@
-package unit.crawler.factory;
+package unit.crawler.website;
 
 import java.net.MalformedURLException;
 import java.net.URL;

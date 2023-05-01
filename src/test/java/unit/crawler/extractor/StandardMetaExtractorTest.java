@@ -14,7 +14,7 @@ import crawler.extractor.StandardMetaExtractor;
 
 class StandardMetaExtractorTest {
 	
-	static String pathToSites = "src/test/java/sites";
+	static String pathToSites = "sites";
 	static String pathToNormalSites = "/normal/";
 	static String pathToEmptySites = "/empty/";
 	
