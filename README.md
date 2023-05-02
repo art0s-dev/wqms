@@ -2,8 +2,8 @@
 
 -- website quality management software --
 
-This is a small project to rank the searchability of websites.
-We are still under development.
+This projects goal is to rank the searchability of websites.
+Its status is still under development. But it's progressing every day i have the time to write.
 If you want to see what exatly is done right now,
 you can check out the wiki to see the design docs.
 
