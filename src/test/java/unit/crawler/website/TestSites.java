@@ -10,11 +10,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class TestSites {
-	public static List<String> malformedUrls = Arrays.asList(
-		"hadsasdo3o2342ß00ß#ä#ä+",
-		"<?php eval('echo true;'); ?>"
-	);
-	
 	public static List<String> normalSitemaps = Arrays.asList(
 		"https://www.baden-wuerttemberg.de/",
 		"http://www.wikipedia.org/"
