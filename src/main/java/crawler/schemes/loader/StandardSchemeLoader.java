@@ -1,4 +1,4 @@
-package crawler.scheme;
+package crawler.schemes.loader;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -9,6 +9,8 @@ import javax.xml.XMLConstants;
 import javax.xml.validation.SchemaFactory;
 
 import org.xml.sax.SAXException;
+
+import crawler.schemes.Scheme;
 
 import static java.nio.file.Files.walk;
 import static java.nio.file.Paths.get;
@@ -63,7 +65,7 @@ public final class StandardSchemeLoader implements SchemeLoader{
 	private boolean isXsd(Path file){
 		return file.getFileName()
 				.toString()
-				.endsWith("xsd");
+				.endsWith("xsd.xml");
 	}
 	
 }

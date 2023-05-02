@@ -1,10 +1,11 @@
-package crawler.scheme;
+package crawler.schemes;
 
 import javax.xml.validation.Schema;
 
-public class Scheme {
-	public String name;
+public abstract class Scheme {
+	
 	public String path;
+	public String name;
 	public Schema document;
 	
 	public Scheme(String name, String path, Schema document) {

@@ -12,21 +12,28 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static unit.crawler.website.TestSites.*;
+
+import crawler.schemes.loader.StandardSchemeLoader;
 import crawler.sitemap.StandardSitemapFactory;
 
 class StandardSitemapFactoryTest {
 
 	static List<URL> pages;
-	
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		pages = getUrlsFrom(normalSitemaps);
+		pages = List.of(new URL("https://www.sap.com/sitemap_index.xml"));
 	}
-	
-	//TODO: Test malformed sitemaps
-	//TODO: Test sitemaps of different standards
-	//TODO: Test empty Sitemaps
-	//TODO: Test parsed entrys
+
+	// TODO: Test malformed sitemaps
+	// TODO: Test sitemaps of different standards
+	// TODO: Test empty Sitemaps
+	// TODO: Test parsed entrys
+
+	// -------------------------------------
+
+	// TODO: When Sitemap is siteindex
+	// create List<Sitemap> which has a List<Url>
 
 	@ParameterizedTest
 	@MethodSource("getNormalPages")
@@ -34,15 +41,19 @@ class StandardSitemapFactoryTest {
 	void GivenNormalPages_WhenBuilding_ThenLinkListReturns(URL url) {
 		var sitemapFactory = new StandardSitemapFactory();
 		{
+			var schemes = new StandardSchemeLoader().load();
+
 			sitemapFactory.setUrl(url);
+			sitemapFactory.setSchemes(schemes);
 		}
-		
-		boolean linkListIsPresent = sitemapFactory.build()
-				.isPresent();
-		
+
+		boolean linkListIsPresent = sitemapFactory.build().isPresent();
+
 		assertTrue(linkListIsPresent);
 	}
-	
-	private static List<URL> getNormalPages(){ return pages; }
-	
+
+	private static List<URL> getNormalPages() {
+		return pages;
+	}
+
 }
