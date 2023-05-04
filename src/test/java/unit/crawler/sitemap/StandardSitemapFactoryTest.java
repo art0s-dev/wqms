@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static unit.crawler.website.TestSites.*;
 
-import crawler.schemes.loader.StandardSchemeLoader;
+import crawler.schemes.loader.StaticSchemeLoader;
 import crawler.sitemap.StandardSitemapFactory;
 
 class StandardSitemapFactoryTest {
@@ -41,7 +41,7 @@ class StandardSitemapFactoryTest {
 	void GivenNormalPages_WhenBuilding_ThenLinkListReturns(URL url) {
 		var sitemapFactory = new StandardSitemapFactory();
 		{
-			var schemes = new StandardSchemeLoader().load();
+			var schemes = new StaticSchemeLoader().load();
 
 			sitemapFactory.setUrl(url);
 			sitemapFactory.setSchemes(schemes);

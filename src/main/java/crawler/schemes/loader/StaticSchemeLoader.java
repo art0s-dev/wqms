@@ -10,7 +10,7 @@ import crawler.schemes.Siteindex;
 import crawler.schemes.Sitemap;
 import java.io.File;
 
-public final class StandardSchemeLoader implements SchemeLoader{
+public final class StaticSchemeLoader implements SchemeLoader{
 	private String asXSD = XMLConstants.W3C_XML_SCHEMA_NS_URI;
 
 	public List<Scheme> load(){

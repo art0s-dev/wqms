@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 import crawler.schemes.Scheme;
 import crawler.schemes.Siteindex;
 import crawler.schemes.Sitemap;
-import crawler.schemes.loader.StandardSchemeLoader;
+import crawler.schemes.loader.StaticSchemeLoader;
 
 class StandardSchemeLoaderTest {
 
 	@Test
 	void GivenSchemeLoader_WhenLoaderIsCalled_ThenSitemapAndIndexAreLoaded() {
-		var loader = new StandardSchemeLoader();
+		var loader = new StaticSchemeLoader();
 		List<Scheme> list = loader.load();
 		
 		var schemesAreLoaded = checkSchemes(list);
