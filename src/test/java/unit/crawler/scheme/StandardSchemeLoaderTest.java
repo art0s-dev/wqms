@@ -8,17 +8,30 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import crawler.schemes.Scheme;
+import crawler.schemes.Siteindex;
+import crawler.schemes.Sitemap;
 import crawler.schemes.loader.StandardSchemeLoader;
 
 class StandardSchemeLoaderTest {
 
-	@Test @Disabled
-	void GivenSchemeLoader_WhenLoad_ThenListOfSchemesIsNotEmpty() {
+	@Test
+	void GivenSchemeLoader_WhenLoaderIsCalled_ThenSitemapAndIndexAreLoaded() {
 		var loader = new StandardSchemeLoader();
 		List<Scheme> list = loader.load();
-		var listIsNotEmpty = !list.isEmpty();
 		
-		assertTrue(listIsNotEmpty);
+		var schemesAreLoaded = checkSchemes(list);
+		assertTrue(schemesAreLoaded);
+	}
+
+
+	private boolean checkSchemes(List<Scheme> list) {
+		return isSchemeChildOFSitemap(list.get(0)) 
+				&& isSchemeChildOFSitemap(list.get(1));
+	}
+	
+	private boolean isSchemeChildOFSitemap(Scheme scheme) {
+		return scheme instanceof Siteindex || 
+				scheme instanceof Sitemap;
 	}
 
 }
