@@ -31,6 +31,4 @@ public final class StaticSchemeLoader implements SchemeLoader{
 		return factory.newSchema(new File(path));
 	}
 	
-	
-	
 }

@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static unit.crawler.website.TestSites.*;
 
 import crawler.schemes.loader.StaticSchemeLoader;
-import crawler.sitemap.StandardSitemapFactory;
+import crawler.sitemap.factory.StandardSitemapFactory;
 
 class StandardSitemapFactoryTest {
 

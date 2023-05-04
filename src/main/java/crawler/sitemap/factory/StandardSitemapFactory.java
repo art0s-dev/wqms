@@ -1,4 +1,4 @@
-package crawler.sitemap;
+package crawler.sitemap.factory;
 
 import java.net.URL;
 import java.util.List;
@@ -9,13 +9,14 @@ import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.Document;
 
 import crawler.schemes.Scheme;
+import crawler.sitemap.Sitemap;
 
 import static java.util.Optional.empty;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-public final class StandardSitemapFactory implements SitemapFactory{
+public final class StandardSitemapFactory implements SeoMapFactory{
 	
 	private List<Scheme> schemes;
 	private URL url;
