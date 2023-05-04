@@ -16,7 +16,7 @@ public final class StaticSchemeLoader implements SchemeLoader{
 	public List<Scheme> load(){
 		try {
 			var siteindex = new Siteindex(Siteindex.path, create(Siteindex.path));
-			var sitemap = new Siteindex(Sitemap.path, create(Sitemap.path));
+			var sitemap = new Sitemap(Sitemap.path, create(Sitemap.path));
 			return List.of(siteindex, sitemap);
 		}
 		
