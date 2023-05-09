@@ -1,9 +1,11 @@
 package crawler.sitemap.validator;
 
+import java.net.URL;
+
 import crawler.schemes.Scheme;
 import crawler.sitemap.SeoMap;
 
 public interface SeoMapValidator {
-	public SeoMapValidator of(Scheme scheme);
-	public boolean isValid(SeoMap sitemap);
+	public void setScheme(Scheme scheme);
+	public boolean isValidSitemap(URL url);
 }
