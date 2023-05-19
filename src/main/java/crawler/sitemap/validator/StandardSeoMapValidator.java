@@ -5,7 +5,7 @@ import java.net.URL;
 import javax.xml.transform.stream.StreamSource;
 
 import crawler.schemes.Scheme;
-import crawler.sitemap.SeoMap;
+
 
 public class StandardSeoMapValidator implements SeoMapValidator {
 

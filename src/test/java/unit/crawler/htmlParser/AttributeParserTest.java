@@ -11,33 +11,31 @@ import crawler.website.Website;
 
 class AttributeParserTest {
 
-	String markup = "<meta someOther=\"true\"/>" 
-			+ "<meta name=\"description\" content=\"testValue\"/>";
+    String markup = "<meta someOther=\"true\"/>" + "<meta name=\"description\" content=\"testValue\"/>";
 
-	String keywordMarkup = "<meta name=\"keywords\" content=\"Baden-Württemberg, "
-			+ "Landesregierung, Landesportal, Ministerpräsident" + ",Landeskunde, Politik,\" />";
+    String keywordMarkup = "<meta name=\"keywords\" content=\"Baden-Württemberg, "
+	    + "Landesregierung, Landesportal, Ministerpräsident" + ",Landeskunde, Politik,\" />";
 
-	@Test
-	void GivenWebpage_WhenExtracting_ThenReturnContentsOfAttribute() {
-		var website = new Website(this.markup);
-		var attributeParser = new AttributeParser(website);
-		var text = attributeParser.extract("description");
+    @Test
+    void GivenWebpage_WhenExtracting_ThenReturnContentsOfAttribute() {
+	var website = new Website(this.markup);
+	var attributeParser = new AttributeParser(website);
+	var text = attributeParser.extract("description");
 
-		assertTrue(text.contentEquals("testValue"));
-	}
+	assertTrue(text.contentEquals("testValue"));
+    }
 
-	@Test
-	void GivenWebpage_WhenExtracting_ThenReturnKeywordList() {
-		var website = new Website(this.keywordMarkup);
-		var attributeParser = new AttributeParser(website);
-		List<String> keywords = attributeParser.extractKeywords();
-		var keywordsAreComplete = checkKeywords(keywords);
+    @Test
+    void GivenWebpage_WhenExtracting_ThenReturnKeywordList() {
+	var website = new Website(this.keywordMarkup);
+	var attributeParser = new AttributeParser(website);
+	List<String> keywords = attributeParser.extractKeywords();
+	var keywordsAreComplete = checkKeywords(keywords);
 
-		assertTrue(keywordsAreComplete);
-	}
+	assertTrue(keywordsAreComplete);
+    }
 
-	private boolean checkKeywords(List<String> keywords) {
-		return keywords.contains("Baden-Württemberg") && keywords.contains("Ministerpräsident");
-	}
-
+    private boolean checkKeywords(List<String> keywords) {
+	return keywords.contains("Baden-Württemberg") && keywords.contains("Ministerpräsident");
+    }
 }
