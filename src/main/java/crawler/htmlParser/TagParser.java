@@ -15,8 +15,7 @@ public final class TagParser implements HtmlParser {
 	}
 
 	private String searchForTag(String tag) {
-		var html = this.website.body;
-
+		var html = website.body;
 		var startTag = "<" + tag + ">";
 		int from = html.indexOf(startTag);
 		int to = html.indexOf("</" + tag + ">");

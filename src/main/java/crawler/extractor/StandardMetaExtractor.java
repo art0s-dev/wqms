@@ -14,8 +14,6 @@ public final class StandardMetaExtractor implements MetaExtractor {
 	String descriptionAttribute = "description";
 
 	public Optional<Meta> build() {
-
-		var website = this.website;
 		var websiteWasNotSet = website == null;
 
 		if (websiteWasNotSet) {

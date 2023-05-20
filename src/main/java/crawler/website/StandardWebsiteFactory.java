@@ -11,7 +11,6 @@ public final class StandardWebsiteFactory implements WebsiteFactory {
 	private URL url;
 
 	public Optional<Website> build() {
-		var url = this.url;
 		var urlWasNotSet = url == null;
 
 		if (urlWasNotSet) {

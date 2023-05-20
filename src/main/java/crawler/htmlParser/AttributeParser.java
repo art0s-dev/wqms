@@ -8,8 +8,7 @@ import crawler.website.Website;
 
 public final class AttributeParser implements HtmlParser {
 	
-	Website website;
-	
+	Website website;	
 	String keywordsAttribute = "keywords";
 	String markupBeforeValue = "content=";
 	
@@ -27,7 +26,6 @@ public final class AttributeParser implements HtmlParser {
 	}
 	
 	private List<String> createKeywordList(String keywordString) {
-			
 		var thereAreNoKeywords = keywordString.isBlank();
 		if(thereAreNoKeywords) {
 			return Arrays.asList();
@@ -40,10 +38,8 @@ public final class AttributeParser implements HtmlParser {
 	}
 	
 	private String searchForAttribute(String attribute) {
-		var html = this.website.body;
-		int from = html.indexOf(attribute);
-		
-		var attributeDoesNotExist = from == -1;
+		var html = website.body;
+		var attributeDoesNotExist = html.indexOf(attribute) == -1;
 		if(attributeDoesNotExist) {
 			return "";
 		}

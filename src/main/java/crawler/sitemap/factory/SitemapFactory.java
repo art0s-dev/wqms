@@ -24,8 +24,7 @@ public final class SitemapFactory implements SeoMapFactory {
 		var sitemapIsNotValid = !validator.isValidSitemap(url);
 		if(sitemapIsNotValid) {
 			return List.of();
-		}
-		
+		}		
 		
 		return List.of();
 	}
