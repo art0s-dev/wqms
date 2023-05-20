@@ -14,7 +14,6 @@ import crawler.schemes.loader.StaticSchemeLoader;
 
 class StaticSchemeLoaderTest {
 
-
 	@Test 
 	void GivenRequestForSitemap_WhenLoaderIsCalled_ThenLoadSitemap() {
 		var loader = new StaticSchemeLoader();

@@ -11,9 +11,10 @@ import org.w3c.dom.Document;
 
 import crawler.sitemap.parser.StandardSeoMapParser;
 
+import static unit.crawler.website.TestSites.localGovernmentSitemap;
+
 class StandardSeoMapParserTest {
-	
-	
+
 	@Test
 	void GivenNoUrl_WhenParserIsCalled_ThenNoDocumentIsReturned() {
 		var parser = new StandardSeoMapParser();
@@ -38,7 +39,7 @@ class StandardSeoMapParserTest {
 	
 	@Test
 	void GivenValidDocument_WhenParserIsCalled_ThenDocumentIsReturned() throws MalformedURLException {
-		var url = new URL("https://www.baden-wuerttemberg.de/sitemap.xml");
+		var url = new URL(localGovernmentSitemap);
 		var parser = new StandardSeoMapParser();
 		{
 			parser.setUrl(url);

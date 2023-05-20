@@ -58,8 +58,8 @@ class StandardMetaExtractorTest {
 	
 	@Test
 	void GivenDescription_WhenExtracting_ThenDescriptionIsSame() {
-		var description = this.markupForDescription;
-		var meta = createMeta(new Website(description));
+		var website = new Website(markupForDescription);
+		var meta = createMeta(website);
 		
 		var descriptionIsTheSame = meta.description
 				.contentEquals("test");
@@ -69,8 +69,8 @@ class StandardMetaExtractorTest {
 
 	@Test 
 	void GivenDescriptionInReversedOrder_WhenExtracting_ThenDescriptionIsSame() {
-		var description = this.markupForDescriptionReversed;
-		var meta = createMeta(new Website(description));
+		var website = new Website(markupForDescriptionReversed);
+		var meta = createMeta(website);
 		
 		var descriptionIsTheSame = meta.description
 				.contentEquals("test");

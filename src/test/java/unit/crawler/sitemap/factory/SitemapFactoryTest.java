@@ -13,6 +13,8 @@ import crawler.schemes.loader.StaticSchemeLoader;
 import crawler.sitemap.factory.SitemapFactory;
 import crawler.sitemap.validator.StandardSeoMapValidator;
 
+import static unit.crawler.website.TestSites.localGovernmentSitemap;
+
 class SitemapFactoryTest {
 	
 	@Test
@@ -21,7 +23,6 @@ class SitemapFactoryTest {
 		var factory = new SitemapFactory(validator);
 		var list = factory.build();
 		
-		
 		assertTrue(list.isEmpty());
 	}
 	
@@ -29,10 +30,12 @@ class SitemapFactoryTest {
 	void GivenInvalidUrl_WhenFactoryIsCalled_ThenListIsEmpty() throws MalformedURLException {
 		var url = new URL("https://baden-wurtemberg.de");
 		var validator = new StandardSeoMapValidator();
+		
 		var factory = new SitemapFactory(validator);
 		{
 			factory.setUrl(url);
 		}
+		
 		var list = factory.build();
 		
 		assertTrue(list.isEmpty());
@@ -42,7 +45,7 @@ class SitemapFactoryTest {
 	
 	@Test @Disabled
 	void GivenAUrlToASitemap_WhenFacotryIsCalled_ThenSitemapIsConstructed() throws MalformedURLException {
-		var url = new URL("https://www.baden-wuerttemberg.de/de/startseite/?type=1970042201");
+		var url = new URL(localGovernmentSitemap);
 		var validator = new StandardSeoMapValidator();
 		{
 			var scheme = new StaticSchemeLoader();

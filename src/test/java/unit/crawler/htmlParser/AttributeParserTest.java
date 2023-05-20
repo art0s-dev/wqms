@@ -18,24 +18,25 @@ class AttributeParserTest {
 
     @Test
     void GivenWebpage_WhenExtracting_ThenReturnContentsOfAttribute() {
-	var website = new Website(this.markup);
-	var attributeParser = new AttributeParser(website);
-	var text = attributeParser.extract("description");
-
-	assertTrue(text.contentEquals("testValue"));
+		var website = new Website(markup);
+		var attributeParser = new AttributeParser(website);
+		var text = attributeParser.extract("description");
+	
+		assertTrue(text.contentEquals("testValue"));
     }
 
     @Test
     void GivenWebpage_WhenExtracting_ThenReturnKeywordList() {
-	var website = new Website(this.keywordMarkup);
-	var attributeParser = new AttributeParser(website);
-	List<String> keywords = attributeParser.extractKeywords();
-	var keywordsAreComplete = checkKeywords(keywords);
-
-	assertTrue(keywordsAreComplete);
+		var website = new Website(keywordMarkup);
+		var attributeParser = new AttributeParser(website);
+		List<String> keywords = attributeParser.extractKeywords();
+		var keywordsAreComplete = checkKeywords(keywords);
+	
+		assertTrue(keywordsAreComplete);
     }
 
     private boolean checkKeywords(List<String> keywords) {
-	return keywords.contains("Baden-Württemberg") && keywords.contains("Ministerpräsident");
+    	return keywords.contains("Baden-Württemberg") 
+    			&& keywords.contains("Ministerpräsident");
     }
 }
