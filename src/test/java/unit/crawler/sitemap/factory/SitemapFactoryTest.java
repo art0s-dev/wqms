@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import crawler.schemes.loader.StaticSchemeLoader;
 import crawler.sitemap.factory.SitemapFactory;
 import crawler.sitemap.validator.StandardSeoMapValidator;
 
@@ -21,7 +22,7 @@ class SitemapFactoryTest {
 	 * @throws MalformedURLException 
 	 */
 	
-	@Test @Disabled
+	@Test
 	void GivenNoUrl_WhenFactoryIsCalled_ThenListIsEmpty() {
 		var validator = new StandardSeoMapValidator();
 		var factory = new SitemapFactory(validator);
@@ -31,7 +32,7 @@ class SitemapFactoryTest {
 		assertTrue(list.isEmpty());
 	}
 	
-	@Test @Disabled
+	@Test
 	void GivenInvalidUrl_WhenFactoryIsCalled_ThenListIsEmpty() throws MalformedURLException {
 		var url = new URL("https://baden-wurtemberg.de");
 		var validator = new StandardSeoMapValidator();
@@ -48,8 +49,13 @@ class SitemapFactoryTest {
 	
 	@Test @Disabled
 	void GivenAUrlToASitemap_WhenFacotryIsCalled_ThenSitemapIsConstructed() throws MalformedURLException {
-		var url = new URL("https://www.baden-wuerttemberg.de/sitemap.xml");
+		var url = new URL("https://www.baden-wuerttemberg.de/de/startseite/?type=1970042201");
 		var validator = new StandardSeoMapValidator();
+		{
+			var scheme = new StaticSchemeLoader();
+			validator.setScheme(scheme.loadSitemap());
+		}
+		
 		var factory = new SitemapFactory(validator);
 		{
 			factory.setUrl(url);
