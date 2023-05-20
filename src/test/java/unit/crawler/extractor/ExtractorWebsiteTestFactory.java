@@ -7,7 +7,6 @@ import static java.util.stream.Collectors.toList;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import crawler.website.Website;
 import tools.files.SimpleFileReader;
@@ -25,10 +24,8 @@ public final class ExtractorWebsiteTestFactory {
 		
 		catch (IOException e) 
 		{
-			e.printStackTrace();
+			return null;
 		}
-		
-		return null;
 	}
 	
 	private static Website createDummy(Path file) {
@@ -39,8 +36,8 @@ public final class ExtractorWebsiteTestFactory {
 			return new Website(SimpleFileReader.read(path));
 		} 
 		
-		catch (IOException e) {
-			e.printStackTrace();
+		catch (IOException e) 
+		{
 			return null;
 		}
 	}
