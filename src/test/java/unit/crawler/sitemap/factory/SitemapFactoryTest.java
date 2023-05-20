@@ -14,13 +14,6 @@ import crawler.sitemap.factory.SitemapFactory;
 import crawler.sitemap.validator.StandardSeoMapValidator;
 
 class SitemapFactoryTest {
-
-	/**
-	 * The idea is here to load u arl and to return a sitemap
-	 *  ( a data object which incorporates a list of urls )
-	 * Later the siteindex factory will incorporate a sitemap factory??? Work in progress
-	 * @throws MalformedURLException 
-	 */
 	
 	@Test
 	void GivenNoUrl_WhenFactoryIsCalled_ThenListIsEmpty() {
