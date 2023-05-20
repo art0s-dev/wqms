@@ -12,8 +12,11 @@ import java.io.File;
 
 public final class StaticSchemeLoader implements SchemeLoader{
 	private String asXSD = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+	
+	public Scheme loadSitemap() { return load().get(1); }
+	public Scheme loadSiteindex() { return load().get(0); }
 
-	public List<Scheme> load(){
+	private List<Scheme> load(){
 		try {
 			var siteindex = new Siteindex(Siteindex.path, create(Siteindex.path));
 			var sitemap = new Sitemap(Sitemap.path, create(Sitemap.path));

@@ -21,20 +21,14 @@ public final class SitemapFactory implements SeoMapFactory {
 	}
 
 	public List<Optional<URL>> build() {
-		var urlWasntSetOrSitemapIsNotValid = checkUrlAndSitemap();
-		if(urlWasntSetOrSitemapIsNotValid) {
+		var sitemapIsNotValid = !validator.isValidSitemap(url);
+		if(sitemapIsNotValid) {
 			return List.of();
 		}
 		
 		
 		return List.of();
 	}
-	
-	private boolean checkUrlAndSitemap() {
-		var validator = this.validator;
-		var sitemapIsNotValid = !validator.isValidSitemap(url);
-		var urlWasNotSet = url == null;
-		return sitemapIsNotValid | urlWasNotSet;
-	}
+
 
 }

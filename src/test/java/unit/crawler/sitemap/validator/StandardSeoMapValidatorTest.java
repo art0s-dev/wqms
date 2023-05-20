@@ -18,11 +18,7 @@ class StandardSeoMapValidatorTest {
 	static List<Scheme> schemes;
 	static List<URL> validSitemaps;
 	
-	@BeforeAll
-	public static void setup() {
-		var loader = new StaticSchemeLoader();
-		schemes = loader.load();
-	}
+	
 
 	@Test
 	void GivenSitemapAndScheme_WhenValidating_ThenReturnTrue() throws MalformedURLException {
@@ -30,7 +26,7 @@ class StandardSeoMapValidatorTest {
 		
 		var validator =  new StandardSeoMapValidator();
 		{
-			var sitemapScheme = schemes.get(1);
+			var sitemapScheme = new StaticSchemeLoader().loadSitemap();
 			validator.setScheme(sitemapScheme);
 		}
 		
