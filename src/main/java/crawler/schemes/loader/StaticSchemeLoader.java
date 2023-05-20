@@ -13,25 +13,24 @@ import java.io.File;
 public final class StaticSchemeLoader implements SchemeLoader{
 	private String asXSD = XMLConstants.W3C_XML_SCHEMA_NS_URI;
 	
-	public Scheme loadSitemap() { return load().get(1); }
-	public Scheme loadSiteindex() { return load().get(0); }
+	public Scheme loadSitemap() { 
+		return new Sitemap(Sitemap.path, load(Sitemap.path));
+	}
+	
+	public Scheme loadSiteindex() { 
+		return new Siteindex(Siteindex.path, load(Siteindex.path));
+	}
 
-	private List<Scheme> load(){
+	private Schema load(String path){
 		try {
-			var siteindex = new Siteindex(Siteindex.path, create(Siteindex.path));
-			var sitemap = new Sitemap(Sitemap.path, create(Sitemap.path));
-			return List.of(siteindex, sitemap);
+			var factory = SchemaFactory.newInstance(asXSD);
+			return factory.newSchema(new File(path));
 		}
 		
 		catch(SAXException e)
 		{
-			return List.of();
+			return null;
 		}
-	}
-	
-	private Schema create(String path) throws SAXException {
-		var factory = SchemaFactory.newInstance(asXSD);
-		return factory.newSchema(new File(path));
 	}
 	
 }
