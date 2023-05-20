@@ -14,9 +14,7 @@ import tools.files.SimpleFileReader;
 
 public final class ExtractorWebsiteTestFactory {
 	
-	public static List<Website> createDummyWebsites(
-		String sitesFolder
-	){
+	public static List<Website> createDummyWebsites(String sitesFolder){
 		try 
 		{
 			return walk(get(sitesFolder))
@@ -35,9 +33,13 @@ public final class ExtractorWebsiteTestFactory {
 	
 	private static Website createDummy(Path file) {
 		var path = file.toString();
-		try {
+		
+		try 
+		{
 			return new Website(SimpleFileReader.read(path));
-		} catch (IOException e) {
+		} 
+		
+		catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		}

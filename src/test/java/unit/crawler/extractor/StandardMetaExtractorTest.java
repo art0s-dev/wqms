@@ -32,9 +32,7 @@ class StandardMetaExtractorTest {
 
 	@ParameterizedTest
 	@MethodSource("getNormalSites")
-	void GivenNormalSite_WhenExtracting_ThenTitleIsPresent(
-		Website website
-	) {
+	void GivenNormalSite_WhenExtracting_ThenTitleIsPresent(Website website) {
 		var meta = createMeta(website);
 		var titleIsPresent = !meta.title.isBlank();
 	
@@ -43,9 +41,7 @@ class StandardMetaExtractorTest {
 	
 	@ParameterizedTest
 	@MethodSource("getEmptySites")
-	void GivenEmptySite_WhenExtracting_ThenTitleIsBlank(
-		Website website
-	) {
+	void GivenEmptySite_WhenExtracting_ThenTitleIsBlank(Website website) {
 		var meta = createMeta(website);
 		var titleIsBlank = meta.title.isBlank();
 	
@@ -53,8 +49,7 @@ class StandardMetaExtractorTest {
 	}
 
 	@Test
-	void GivenSiteWasNotSet_WhenExtracting_ThenEmptyMetaReturns()
-	{
+	void GivenSiteWasNotSet_WhenExtracting_ThenEmptyMetaReturns() {
 		var extractor = new StandardMetaExtractor();
 		var metaIsEmpty = extractor.build().isEmpty();
 		
