@@ -38,7 +38,7 @@ class StandardSeoMapParserTest {
 	
 	@Test
 	void GivenValidDocument_WhenParserIsCalled_ThenDocumentIsReturned() throws MalformedURLException {
-		var url = new URL("https://www.baden-wuerttemberg.de/de/startseite/?type=1970042201");
+		var url = new URL("https://www.baden-wuerttemberg.de/sitemap.xml");
 		var parser = new StandardSeoMapParser();
 		{
 			parser.setUrl(url);
@@ -46,7 +46,6 @@ class StandardSeoMapParserTest {
 		
 		var document = parser.parse().orElseThrow();
 		assertTrue(document instanceof Document);
-		
 	}
 
 }
