@@ -30,6 +30,13 @@ public final class StandardSeoMapParser implements SeoMapParser {
 		try
 		{
 			DocumentBuilder builder = instance.newDocumentBuilder();
+			
+			/**
+			 * error handler prints output to the std:error
+			 * which is a side effect,
+			 */
+			builder.setErrorHandler(null);
+			
 			InputStream stream = url.openStream();
 			Document sitemap = builder.parse(stream);
 			

@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 
@@ -23,7 +24,7 @@ class StandardSeoMapParserTest {
 		assertTrue(document.isEmpty());
 	}
 
-	@Test
+	@Test 
 	void GivenUrlWithNoDocument_WhenParserIsCalled_ThenNoDocumentIsReturned() throws MalformedURLException {
 		var url = new URL("https://www.sap.com");
 		var parser = new StandardSeoMapParser();
