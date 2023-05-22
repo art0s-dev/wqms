@@ -17,9 +17,37 @@ import static unit.crawler.website.TestSites.localGovernmentSitemap;;
 
 class StandardSeoMapValidatorTest {
 	
+	private static URL url;
+	private static URL urlWithNoDocument;
+	
+	@BeforeAll
+	static void setup() throws MalformedURLException {
+		url = new URL(localGovernmentSitemap);
+		urlWithNoDocument = new URL("https://www.sap.com");
+	}
+	
 	@Test
-	void GivenSitemapAndScheme_WhenValidating_ThenReturnTrue() throws MalformedURLException {
-		URL url = new URL(localGovernmentSitemap);
+	void GivenUrlWithNoValidXMLDocument_WhenValidating_ReturnFalse() {
+		var validator =  new StandardSeoMapValidator();
+		{
+			var sitemapScheme = new StaticSchemeLoader().loadSitemap();
+			validator.setScheme(sitemapScheme);
+		}
+		
+		var sitemapIsNotValid = !validator.isValidSitemap(urlWithNoDocument);
+		assertTrue(sitemapIsNotValid);
+	}
+	
+	@Test
+	void GivenNoScheme_WhenValidating_ThenReturnFalse()  {
+		var validator =  new StandardSeoMapValidator();
+		var sitemapIsNotValid = !validator.isValidSitemap(url);
+		
+		assertTrue(sitemapIsNotValid);
+	}
+	
+	@Test
+	void GivenSitemapAndScheme_WhenValidating_ThenReturnTrue() {
 		var validator =  new StandardSeoMapValidator();
 		{
 			var sitemapScheme = new StaticSchemeLoader().loadSitemap();
