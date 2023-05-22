@@ -32,16 +32,20 @@ class StandardSeoMapValidatorTest {
 		{
 			var sitemapScheme = new StaticSchemeLoader().loadSitemap();
 			validator.setScheme(sitemapScheme);
+			validator.setUrl(urlWithNoDocument);
 		}
 		
-		var sitemapIsNotValid = !validator.isValidSitemap(urlWithNoDocument);
+		var sitemapIsNotValid = !validator.isValidSitemap();
 		assertTrue(sitemapIsNotValid);
 	}
 	
 	@Test
 	void GivenNoScheme_WhenValidating_ThenReturnFalse()  {
 		var validator =  new StandardSeoMapValidator();
-		var sitemapIsNotValid = !validator.isValidSitemap(url);
+		{
+			validator.setUrl(url);
+		}
+		var sitemapIsNotValid = !validator.isValidSitemap();
 		
 		assertTrue(sitemapIsNotValid);
 	}
@@ -52,9 +56,10 @@ class StandardSeoMapValidatorTest {
 		{
 			var sitemapScheme = new StaticSchemeLoader().loadSitemap();
 			validator.setScheme(sitemapScheme);
+			validator.setUrl(url);
 		}
 		
-		var sitemapIsValid = validator.isValidSitemap(url);
+		var sitemapIsValid = validator.isValidSitemap();
 		assertTrue(sitemapIsValid);
 	}
 

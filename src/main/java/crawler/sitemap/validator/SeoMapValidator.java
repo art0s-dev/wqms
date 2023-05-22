@@ -6,5 +6,6 @@ import crawler.schemes.Scheme;
 
 public interface SeoMapValidator {
 	public void setScheme(Scheme scheme);
-	public boolean isValidSitemap(URL url);
+	public void setUrl(URL url);
+	public boolean isValidSitemap();
 }

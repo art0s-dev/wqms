@@ -10,14 +10,19 @@ import crawler.schemes.Scheme;
 public class StandardSeoMapValidator implements SeoMapValidator {
 
 	private Scheme scheme;
+	private URL url;
+	
+	public void setUrl(URL url) {
+		this.url = url;
+	}
 	
 	public void setScheme(Scheme scheme) {
 		this.scheme = scheme;
 	}
 
-	public boolean isValidSitemap(URL url) {
-		var schemeIsNotSet = scheme == null;
-		if(schemeIsNotSet) {
+	public boolean isValidSitemap() {
+		var schemeOrUrlWereNotSet = checkSchemeAndUrl();
+		if(schemeOrUrlWereNotSet) {
 			return false;
 		}
 		
@@ -35,6 +40,10 @@ public class StandardSeoMapValidator implements SeoMapValidator {
 		{
 			return false;
 		}
+	}
+
+	private boolean checkSchemeAndUrl() {
+		return scheme == null || url == null;
 	}
 	
 }
