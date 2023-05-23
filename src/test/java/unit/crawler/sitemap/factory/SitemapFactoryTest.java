@@ -71,13 +71,14 @@ class SitemapFactoryTest {
 		assertTrue(list.isEmpty());
 	}
 	
-	@Test @Disabled
+	@Test
 	void _GivenAUrlToASitemap_WhenFactoryIsCalled_ThenSitemapIsConstructed() throws MalformedURLException {
 		var url = new URL(localGovernmentSitemap);
 		var validator = mock(StandardSeoMapValidator.class);
 		when(validator.isValidSitemap())
 			.thenReturn(true);
 		
+		var parser = new StandardSeoMapParser();
 		var factory = new SitemapFactory(validator, parser);
 		{
 			factory.setUrl(url);
