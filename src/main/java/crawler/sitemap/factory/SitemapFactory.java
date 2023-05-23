@@ -4,7 +4,6 @@ package crawler.sitemap.factory;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +19,7 @@ public final class SitemapFactory implements SeoMapFactory {
 	private URL url;
 	private SeoMapValidator validator;
 	private SeoMapParser parser;
+	private static final String linkNodeName = "loc";
 	
 	public SitemapFactory(SeoMapValidator validator, SeoMapParser parser) {
 		this.validator = validator;
@@ -33,16 +33,10 @@ public final class SitemapFactory implements SeoMapFactory {
 	}
 
 	public List<Optional<URL>> build() {
-		var urlWasNotSet = url == null;
-		if(urlWasNotSet) {
-			return List.of();
-		}
-		
-		var sitemapIsNotValid = !validator.isValidSitemap();
 		var documentWrapper = parser.parse();
-		var parserWasNotSuccessfull = documentWrapper.isEmpty();
 		
-		if(sitemapIsNotValid | parserWasNotSuccessfull) {
+		var documentIsNotValid = checkValidationRules(documentWrapper);
+		if(documentIsNotValid) {
 			return List.of();
 		}
 		
@@ -50,19 +44,20 @@ public final class SitemapFactory implements SeoMapFactory {
 		return createLinkList(document);
 	}
 
+
 	private List<Optional<URL>> createLinkList(Document document) {
-		List<Optional<URL>> list = new ArrayList<>(List.of());
+		var list = createEmptyList();
 		var root = document.getFirstChild();
-		var numberOfLinks = root.getChildNodes().getLength();
+		var numberOfLinks = howManyChildren(root);
 		
 		for(int i = 0; i < numberOfLinks; i++) {
 			var node = root.getChildNodes().item(i);
-			var numberOfSubnodes = node.getChildNodes().getLength();
+			var numberOfSubnodes = howManyChildren(node);
 			
 			for(int j = 0; j < numberOfSubnodes; j++) {
 				var subnode = node.getChildNodes().item(j);
 				
-				var nodeIsNotALink = subnode.getNodeName() != "loc";
+				var nodeIsNotALink = subnode.getNodeName() != linkNodeName;
 				if(nodeIsNotALink) {
 					continue;
 				}
@@ -70,6 +65,7 @@ public final class SitemapFactory implements SeoMapFactory {
 				list.add(createLink(subnode));
 			}
 		}
+		
 		return list;
 	}
 	
@@ -85,6 +81,20 @@ public final class SitemapFactory implements SeoMapFactory {
 		{
 			return Optional.empty();
 		}
+	}
+	
+	private boolean checkValidationRules(Optional<Document> documentWrapper) {
+		return documentWrapper.isEmpty() 
+				|| !validator.isValidSitemap() 
+				|| url == null;
+	}
+	
+	private int howManyChildren(Node node) {
+		return node.getChildNodes().getLength();
+	}
+	
+	private List<Optional<URL>> createEmptyList(){
+		return new ArrayList<>(List.of());
 	}
 
 }
