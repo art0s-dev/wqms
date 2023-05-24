@@ -4,7 +4,6 @@ import javax.xml.XMLConstants;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
-import crawler.schemes.Scheme;
 import crawler.schemes.Siteindex;
 import crawler.schemes.Sitemap;
 import java.io.File;
@@ -12,11 +11,11 @@ import java.io.File;
 public final class StaticSchemeLoader implements SchemeLoader{
 	private String asXSD = XMLConstants.W3C_XML_SCHEMA_NS_URI;
 	
-	public Scheme loadSitemap() { 
+	public Sitemap loadSitemap() { 
 		return new Sitemap(Sitemap.path, load(Sitemap.path));
 	}
 	
-	public Scheme loadSiteindex() { 
+	public Siteindex loadSiteindex() { 
 		return new Siteindex(Siteindex.path, load(Siteindex.path));
 	}
 

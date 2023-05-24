@@ -38,7 +38,7 @@ public final class AttributeParser implements HtmlParser {
 	}
 	
 	private String searchForAttribute(String attribute) {
-		var html = website.body;
+		var html = website.body();
 		var attributeDoesNotExist = html.indexOf(attribute) == -1;
 		if(attributeDoesNotExist) {
 			return "";

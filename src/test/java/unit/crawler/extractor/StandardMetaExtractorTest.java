@@ -34,7 +34,7 @@ class StandardMetaExtractorTest {
 	@MethodSource("getNormalSites")
 	void GivenNormalSite_WhenExtracting_ThenTitleIsPresent(Website website) {
 		var meta = createMeta(website);
-		var titleIsPresent = !meta.title.isBlank();
+		var titleIsPresent = !meta.title().isBlank();
 	
 		assertTrue(titleIsPresent);
 	}
@@ -43,7 +43,7 @@ class StandardMetaExtractorTest {
 	@MethodSource("getEmptySites")
 	void GivenEmptySite_WhenExtracting_ThenTitleIsBlank(Website website) {
 		var meta = createMeta(website);
-		var titleIsBlank = meta.title.isBlank();
+		var titleIsBlank = meta.title().isBlank();
 	
 		assertTrue(titleIsBlank);
 	}
@@ -61,7 +61,7 @@ class StandardMetaExtractorTest {
 		var website = new Website(markupForDescription);
 		var meta = createMeta(website);
 		
-		var descriptionIsTheSame = meta.description
+		var descriptionIsTheSame = meta.description()
 				.contentEquals("test");
 	
 		assertTrue(descriptionIsTheSame);
@@ -72,7 +72,7 @@ class StandardMetaExtractorTest {
 		var website = new Website(markupForDescriptionReversed);
 		var meta = createMeta(website);
 		
-		var descriptionIsTheSame = meta.description
+		var descriptionIsTheSame = meta.description()
 				.contentEquals("test");
 	
 		assertTrue(descriptionIsTheSame);

@@ -24,7 +24,7 @@ class StandardWebsiteFactoryTest {
 		}
 
 		Website website = factory.build().orElseThrow();
-		var websiteHasContent = !website.body.isBlank();
+		var websiteHasContent = !website.body().isBlank();
 		
 		assertTrue(websiteHasContent);
 	}

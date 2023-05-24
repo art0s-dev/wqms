@@ -1,9 +1,4 @@
 package crawler.website;
 
-public class Website {
-	public final String body;
+public record Website(String body) {}
 
-	public Website(String body) {
-		this.body = body;
-	}
-}
