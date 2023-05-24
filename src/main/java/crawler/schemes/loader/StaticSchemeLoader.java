@@ -1,6 +1,5 @@
 package crawler.schemes.loader;
 
-import java.util.List;
 import javax.xml.XMLConstants;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;

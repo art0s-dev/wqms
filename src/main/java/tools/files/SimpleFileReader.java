@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 public final class SimpleFileReader {
 	
 	private String url;
-	private String lines;
 	
 	public static String read(String url) throws FileNotFoundException, IOException {
 		var fileReader = new SimpleFileReader();
