@@ -31,6 +31,9 @@ public final class SitemapFactory implements SeoMapFactory {
 		this.parser.setUrl(url);
 		this.validator.setUrl(url);
 	}
+	
+	public SeoMapValidator getValidator() { return this.validator; }
+	public SeoMapParser getParser() { return this.parser; }
 
 	public Sitemap build() {
 		var documentWrapper = parser.parse();

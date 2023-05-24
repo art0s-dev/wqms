@@ -1,19 +1,20 @@
 package unit.crawler.sitemap.factory;
 import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import crawler.sitemap.factory.SitemapFactory;
 import crawler.sitemap.parser.StandardSeoMapParser;
 import crawler.sitemap.validator.StandardSeoMapValidator;
+import crawler.sitemap.factory.SiteindexFactory;
 
 class SiteindexFactoryTest {
 	
@@ -32,12 +33,25 @@ class SiteindexFactoryTest {
 		sitemapFactory = new SitemapFactory(validator, parser);
 	}
 
-	@Test @Disabled
+	@Test
 	void GivenNoUrl_WhenFactoryIsCalled_ThenListIsEmpty() {
-		//var factory = new SiteindexFactory();
-		//List<Optional<URL>> list = factory.build().linkList;
+		var factory = new SiteindexFactory(sitemapFactory);
+		var list = factory.build().linkList();
 		
-		//assertTrue(list.isEmpty());
+		assertTrue(list.isEmpty());
+	}
+	
+	@Test
+	void GivenInvalidUrl_WhenFactoryIsCalled_ThenListIsEmpty() throws MalformedURLException {
+		var url = new URL("https://baden-wurtemberg.de");		
+		var factory = new SiteindexFactory(sitemapFactory);
+		{
+			factory.setUrl(url);
+		}
+		
+		var list = factory.build().linkList();
+		
+		assertTrue(list.isEmpty());
 	}
 
 }

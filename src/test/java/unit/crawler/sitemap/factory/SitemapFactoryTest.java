@@ -20,9 +20,11 @@ class SitemapFactoryTest {
 	
 	private static StandardSeoMapValidator validator;
 	private static StandardSeoMapParser parser;
+	private static URL localGovernmentUrl;
+	private static URL invalidUrl;
 	
 	@BeforeAll
-	static void setup() {
+	static void setup() throws MalformedURLException {
 		validator = mock(StandardSeoMapValidator.class);
 		when(validator.isValidSitemap())
 			.thenReturn(false);
@@ -31,6 +33,8 @@ class SitemapFactoryTest {
 		when(parser.parse())
 			.thenReturn(Optional.empty());
 		
+		localGovernmentUrl = new URL(localGovernmentSitemap);
+		invalidUrl = new URL("https://baden-wurtemberg.de");	
 	}
 	
 	@Test
@@ -42,11 +46,10 @@ class SitemapFactoryTest {
 	}
 	
 	@Test
-	void GivenInvalidUrl_WhenFactoryIsCalled_ThenListIsEmpty() throws MalformedURLException {
-		var url = new URL("https://baden-wurtemberg.de");		
+	void GivenInvalidUrl_WhenFactoryIsCalled_ThenListIsEmpty() {
 		var factory = new SitemapFactory(validator, parser);
 		{
-			factory.setUrl(url);
+			factory.setUrl(invalidUrl);
 		}
 		
 		var list = factory.build().linkList();
@@ -55,15 +58,14 @@ class SitemapFactoryTest {
 	}
 	
 	@Test
-	void GivenAUrlAndFailingParser_WhenFactoryIsCalled_ThenListIsEmpty() throws MalformedURLException {
-		var url = new URL(localGovernmentSitemap);
+	void GivenAUrlAndFailingParser_WhenFactoryIsCalled_ThenListIsEmpty() {
 		var validator = mock(StandardSeoMapValidator.class);
 		when(validator.isValidSitemap())
 			.thenReturn(true);
 		
 		var factory = new SitemapFactory(validator, parser);
 		{
-			factory.setUrl(url);
+			factory.setUrl(localGovernmentUrl);
 		}
 		var list = factory.build().linkList();
 		
@@ -71,8 +73,7 @@ class SitemapFactoryTest {
 	}
 	
 	@Test
-	void _GivenAUrlToASitemap_WhenFactoryIsCalled_ThenSitemapIsConstructed() throws MalformedURLException {
-		var url = new URL(localGovernmentSitemap);
+	void GivenAUrlToASitemap_WhenFactoryIsCalled_ThenSitemapIsConstructed() {
 		var validator = mock(StandardSeoMapValidator.class);
 		when(validator.isValidSitemap())
 			.thenReturn(true);
@@ -80,7 +81,7 @@ class SitemapFactoryTest {
 		var parser = new StandardSeoMapParser();
 		var factory = new SitemapFactory(validator, parser);
 		{
-			factory.setUrl(url);
+			factory.setUrl(localGovernmentUrl);
 		}
 		
 		var list = factory.build().linkList();
