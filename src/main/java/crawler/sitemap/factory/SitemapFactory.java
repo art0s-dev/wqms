@@ -32,16 +32,16 @@ public final class SitemapFactory implements SeoMapFactory {
 		this.validator.setUrl(url);
 	}
 
-	public List<Optional<URL>> build() {
+	public Sitemap build() {
 		var documentWrapper = parser.parse();
 		
 		var documentIsNotValid = checkValidationRules(documentWrapper);
 		if(documentIsNotValid) {
-			return List.of();
+			return new Sitemap(List.of());
 		}
 		
 		var document = documentWrapper.orElseThrow();
-		return createLinkList(document);
+		return new Sitemap(createLinkList(document));
 	}
 
 

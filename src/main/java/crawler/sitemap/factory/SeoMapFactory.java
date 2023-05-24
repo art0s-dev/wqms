@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface SeoMapFactory {
 	public void setUrl(URL url);
-	public List<Optional<URL>> build();
+	public Sitemap build();
 }

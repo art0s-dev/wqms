@@ -37,7 +37,7 @@ class SitemapFactoryTest {
 	@Test
 	void GivenNoUrl_WhenFactoryIsCalled_ThenListIsEmpty() {
 		var factory = new SitemapFactory(validator, parser);
-		var list = factory.build();
+		var list = factory.build().linkList;
 		
 		assertTrue(list.isEmpty());
 	}
@@ -50,7 +50,7 @@ class SitemapFactoryTest {
 			factory.setUrl(url);
 		}
 		
-		var list = factory.build();
+		var list = factory.build().linkList;
 		
 		assertTrue(list.isEmpty());
 	}
@@ -66,7 +66,7 @@ class SitemapFactoryTest {
 		{
 			factory.setUrl(url);
 		}
-		var list = factory.build();
+		var list = factory.build().linkList;
 		
 		assertTrue(list.isEmpty());
 	}
@@ -84,7 +84,7 @@ class SitemapFactoryTest {
 			factory.setUrl(url);
 		}
 		
-		var list = factory.build();
+		var list = factory.build().linkList;
 		var listIsNotEmpty = !list.isEmpty();
 		
 		assertTrue(listIsNotEmpty);
