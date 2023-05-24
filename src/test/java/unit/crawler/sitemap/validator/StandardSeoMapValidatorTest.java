@@ -4,12 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import crawler.schemes.Scheme;
 import crawler.schemes.loader.StaticSchemeLoader;
 import crawler.sitemap.validator.StandardSeoMapValidator;
 

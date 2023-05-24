@@ -2,12 +2,8 @@ package unit.crawler.scheme;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import crawler.schemes.Scheme;
 import crawler.schemes.Siteindex;
 import crawler.schemes.Sitemap;
 import crawler.schemes.loader.StaticSchemeLoader;
