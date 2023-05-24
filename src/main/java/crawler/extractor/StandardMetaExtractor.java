@@ -9,9 +9,9 @@ import crawler.htmlParser.TagParser;
 
 public final class StandardMetaExtractor implements MetaExtractor {
 
-	Website website;
-	String titleTag = "title";
-	String descriptionAttribute = "description";
+	private Website website;
+	private String titleTag = "title";
+	private String descriptionAttribute = "description";
 
 	public Optional<Meta> build() {
 		var websiteWasNotSet = website == null;

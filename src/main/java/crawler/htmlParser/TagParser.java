@@ -4,7 +4,7 @@ import crawler.website.Website;
 
 public final class TagParser implements HtmlParser {
 
-	Website website;
+	private Website website;
 
 	public TagParser(Website website) {
 		this.website = website;

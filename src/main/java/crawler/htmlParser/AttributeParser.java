@@ -8,9 +8,9 @@ import crawler.website.Website;
 
 public final class AttributeParser implements HtmlParser {
 	
-	Website website;	
-	String keywordsAttribute = "keywords";
-	String markupBeforeValue = "content=";
+	private Website website;	
+	private String keywordsAttribute = "keywords";
+	private String markupBeforeValue = "content=";
 	
 	public AttributeParser(Website website) {
 		this.website = website;
