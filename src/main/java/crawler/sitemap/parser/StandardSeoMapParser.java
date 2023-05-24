@@ -30,13 +30,7 @@ public final class StandardSeoMapParser implements SeoMapParser {
 		try
 		{
 			DocumentBuilder builder = instance.newDocumentBuilder();
-			
-			/**
-			 * error handler prints output to the std:error
-			 * which is a side effect,
-			 */
-			builder.setErrorHandler(null);
-			
+			disbaleErrorHandler(builder);
 			InputStream stream = url.openStream();
 			Document sitemap = builder.parse(stream);
 			
@@ -49,5 +43,14 @@ public final class StandardSeoMapParser implements SeoMapParser {
 		}
 	}
 	
-
+	/**
+	 * disableErrorHandler
+	 * The default handler prints fatals out to the std:err
+	 * which can be considered an unwanted side effect
+	 * @param builder
+	 */
+	private void disbaleErrorHandler(DocumentBuilder builder) {
+		builder.setErrorHandler(null);
+	}
+	
 }
