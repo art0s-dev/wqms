@@ -19,7 +19,7 @@ public final class SitemapFactory implements SeoMapFactory {
 	private URL url;
 	private SeoMapValidator validator;
 	private SeoMapParser parser;
-	private static final String linkNodeName = "loc";
+	private static final String LINK_NODE_NAME = "loc";
 	
 	public SitemapFactory(SeoMapValidator validator, SeoMapParser parser) {
 		this.validator = validator;
@@ -60,7 +60,7 @@ public final class SitemapFactory implements SeoMapFactory {
 			for(int j = 0; j < numberOfSubnodes; j++) {
 				var subnode = node.getChildNodes().item(j);
 				
-				var nodeIsNotALink = subnode.getNodeName() != linkNodeName;
+				var nodeIsNotALink = subnode.getNodeName().equals(LINK_NODE_NAME);
 				if(nodeIsNotALink) {
 					continue;
 				}
@@ -75,8 +75,8 @@ public final class SitemapFactory implements SeoMapFactory {
 	private Optional<URL> createLink(Node node){
 		try 
 		{
-			var url = node.getTextContent();
-			var link = new URL(url);
+			var urlFromNode = node.getTextContent();
+			var link = new URL(urlFromNode);
 			return Optional.of(link);
 		}
 		

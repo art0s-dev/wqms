@@ -41,5 +41,4 @@ public final class ExtractorWebsiteTestFactory {
 			return null;
 		}
 	}
-
 }
