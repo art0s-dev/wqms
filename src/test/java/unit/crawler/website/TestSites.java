@@ -23,6 +23,7 @@ public final class TestSites {
 	);
 	
 	public static String localGovernmentSitemap = "https://www.baden-wuerttemberg.de/sitemap.xml";
+	public static String largeSiteindex = "https://www.oracle.com/sitemap.xml";
 	
 	public static List<URL> getUrlsFrom(List<String> linkList)  {
 		return linkList.parallelStream()
