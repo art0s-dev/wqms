@@ -9,7 +9,10 @@ import java.net.URL;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import crawler.schemes.loader.StaticSchemeLoader;
 import crawler.sitemap.factory.SitemapFactory;
 import crawler.sitemap.parser.StandardSeoMapParser;
 import crawler.sitemap.validator.StandardSeoMapValidator;
@@ -22,6 +25,8 @@ class SitemapFactoryTest {
 	private static StandardSeoMapParser parser;
 	private static URL localGovernmentUrl;
 	private static URL invalidUrl;
+	private static URL oracleUrl;
+	private static URL testUrl;
 	
 	@BeforeAll
 	static void setup() throws MalformedURLException {
@@ -35,6 +40,8 @@ class SitemapFactoryTest {
 		
 		localGovernmentUrl = new URL(localGovernmentSitemap);
 		invalidUrl = new URL("https://baden-wurtemberg.de");	
+		oracleUrl = new URL("https://www.oracle.com/oci.xml");
+		testUrl = new URL("https://www.baden-wuerttemberg.de/sitemap.xml");
 	}
 	
 	@Test
@@ -87,6 +94,31 @@ class SitemapFactoryTest {
 		var list = factory.build().linkList();
 		var listIsNotEmpty = !list.isEmpty();
 		
+		assertTrue(listIsNotEmpty);
+	}
+	
+	@Test
+	void GivenUrl_WhenFactoryIsCalled_ThenReturnSitemap() {
+		
+		var validator = new StandardSeoMapValidator();
+		{
+			var scheme = new StaticSchemeLoader().loadSitemap();
+			validator.setScheme(scheme);
+			validator.setUrl(testUrl);
+		}
+		
+		var parser = new StandardSeoMapParser();
+		{
+			parser.setUrl(testUrl);
+		}
+		
+		var factory = new SitemapFactory(validator, parser);
+		{
+			factory.setUrl(testUrl);
+		}
+		
+		var list = factory.build().linkList();
+		var listIsNotEmpty = !list.isEmpty();
 		assertTrue(listIsNotEmpty);
 	}
 

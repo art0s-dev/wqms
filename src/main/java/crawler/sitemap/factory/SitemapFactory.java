@@ -46,7 +46,34 @@ public final class SitemapFactory implements SeoMapFactory {
 		var document = documentWrapper.orElseThrow();
 		return new Sitemap(createLinkList(document));
 	}
-
+	
+	public List<Optional<URL>> createEmptyList(){
+		return new ArrayList<>(List.of());
+	}
+	
+	public int howManyChildren(Node node) {
+		return node.getChildNodes().getLength();
+	}
+	
+	public Optional<URL> createLink(Node node){
+		try 
+		{
+			var urlFromNode = node.getTextContent();
+			var link = new URL(urlFromNode);
+			return Optional.of(link);
+		}
+		
+		catch(MalformedURLException e)
+		{
+			return Optional.empty();
+		}
+	}
+	
+	public boolean checkValidationRules(Optional<Document> documentWrapper) {
+		return documentWrapper.isEmpty() 
+				|| !validator.isValidSitemap() 
+				|| url == null;
+	}
 
 	private List<Optional<URL>> createLinkList(Document document) {
 		var list = createEmptyList();
@@ -72,32 +99,4 @@ public final class SitemapFactory implements SeoMapFactory {
 		return list;
 	}
 	
-	private Optional<URL> createLink(Node node){
-		try 
-		{
-			var urlFromNode = node.getTextContent();
-			var link = new URL(urlFromNode);
-			return Optional.of(link);
-		}
-		
-		catch(MalformedURLException e)
-		{
-			return Optional.empty();
-		}
-	}
-	
-	private boolean checkValidationRules(Optional<Document> documentWrapper) {
-		return documentWrapper.isEmpty() 
-				|| !validator.isValidSitemap() 
-				|| url == null;
-	}
-	
-	private int howManyChildren(Node node) {
-		return node.getChildNodes().getLength();
-	}
-	
-	private List<Optional<URL>> createEmptyList(){
-		return new ArrayList<>(List.of());
-	}
-
 }
