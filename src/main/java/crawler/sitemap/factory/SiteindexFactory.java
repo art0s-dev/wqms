@@ -30,7 +30,7 @@ public class SiteindexFactory implements SeoMapFactory {
 	public Sitemap build() {
 		var documentWrapper = sitemapFactory.getParser().parse();
 		var documentIsNotValid = sitemapFactory.checkValidationRules(documentWrapper);
-		if(url == null || documentWrapper.isEmpty() ) {
+		if(documentIsNotValid) {
 			return new Sitemap(List.of());
 		}
 		

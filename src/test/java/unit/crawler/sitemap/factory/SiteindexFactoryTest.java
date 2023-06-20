@@ -24,16 +24,14 @@ import crawler.sitemap.factory.SiteindexFactory;
 class SiteindexFactoryTest {
 	
 	private static SitemapFactory sitemapFactory;
-	private static URL localGovernmentUrl;
 	private static URL invalidUrl;
 	private static URL siteindexUrl;
 	
 	@BeforeAll
 	static void setup() throws MalformedURLException {
 		prepareMocks();
-		localGovernmentUrl = new URL(localGovernmentSitemap);
 		invalidUrl = new URL("https://baden-wurtemberg.de");
-		siteindexUrl = new URL("https://www.google.com/sitemap.xml");
+		siteindexUrl = new URL("http://www.oracle.com/sitemap.xml");
 	}
 
 	@Test
