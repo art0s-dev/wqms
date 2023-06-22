@@ -19,6 +19,8 @@ class MainTest {
 	
 	@Test @Disabled
 	void GivenUrlToSiteWithoutSitemap_WhenMainIsCalled_ThenExceptionIsThrown() {}
+	@Test @Disabled
+	void GivenUrlWithOnlyOneSitemapAndItsDamaged_WhenLinkListIsCalled_ThenThrow() {}
 	
 	@Test @Disabled
 	void GivenLocalSitemap_WhenMainIsCalled_LocalSitemapAndSitesGetParsed() {}
