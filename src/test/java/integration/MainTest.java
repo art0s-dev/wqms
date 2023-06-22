@@ -21,10 +21,8 @@ class MainTest {
 	void GivenUrlToSiteWithoutSitemap_WhenMainIsCalled_ThenExceptionIsThrown() {}
 	@Test @Disabled
 	void GivenUrlWithOnlyOneSitemapAndItsDamaged_WhenLinkListIsCalled_ThenThrow() {}
-	
 	@Test @Disabled
 	void GivenLocalSitemap_WhenMainIsCalled_LocalSitemapAndSitesGetParsed() {}
-	
 	@Test @Disabled
 	void GivenBusinessSitemapWith100Pages_WhenMainIsCalled_ThenExecutionIsUnder6Seconds() {}
 }

@@ -10,7 +10,7 @@ public class Main {
 		
 		HashMap<String, List<String>> problems = new HashMap<>();
 		pageList.parallelStream().forEach(
-			(website) -> problems.put(website.toString(), Assignment.assign(website))
+			(website) -> problems.put(website, Assignment.assign(website))
 		);
 		
 		System.out.print(problems.toString());
