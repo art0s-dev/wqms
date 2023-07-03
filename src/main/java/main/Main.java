@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Main {
-	public static void main(String[] args) throws MalformedURLException{
+	public static void main(String[] args) {
 		URL url = new URL(args[0]);
 		List<String> pageList = Sitemap.create(url);
 		
