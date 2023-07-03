@@ -44,7 +44,7 @@ public class Sitemap {
 		}
 	}
 
-	public static Document parseDocument(URL url) throws IOException, ParserConfigurationException, SAXException {
+	private static Document parseDocument(URL url) throws IOException, ParserConfigurationException, SAXException {
 		InputStream stream = url.openStream();
 		DocumentBuilderFactory instance = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = instance.newDocumentBuilder();
@@ -52,7 +52,7 @@ public class Sitemap {
 		return builder.parse(stream);
 	}
 	
-	public static String[] parseSitemap(Document document){
+	private static String[] parseSitemap(Document document){
 		var listOfLocations = document.getElementsByTagName("loc");
 		var numberOfNodes = listOfLocations.getLength();
 		String[] linkList = {};
